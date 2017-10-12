@@ -1,0 +1,37 @@
+====================
+ GWT Profile Module
+====================
+
+The Google Web Toolkit of MUp.
+
+
+Content
+-------
+
+build.xml         Ant build file.
+compile-gwt.sh    Compiles the lightparser in GWT.
+gwt_module        GWT module definition for Lig.
+lightparser.i*    IntelliJ 7.4(>) project files. 
+src               Source files.
+test              Test files.
+compile.sh        Compiles the sources with GWT compiler.
+shell.sh          Runs the GWT browser shell.
+test.sh           Runs the GWT test suite.
+
+
+Help
+----
+
+To obtain help for the build system type:
+
+  $ ant help 
+
+
+Run MUp GWT Console
+--------------------
+
+To run the GWT console type:
+
+ $ ./shell.sh
+
+

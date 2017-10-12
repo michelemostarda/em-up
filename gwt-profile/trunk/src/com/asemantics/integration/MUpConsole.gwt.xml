@@ -1,0 +1,34 @@
+<module rename-to='mupconsole'>
+
+      <!-- Inherit the core Web Toolkit stuff.                        -->
+      <inherits name='com.google.gwt.user.User'/>
+	
+      <!-- Inherit the default GWT style sheet.  You can change       -->
+      <!-- the theme of your GWT application by uncommenting          -->
+      <!-- any one of the following lines.                            -->
+      <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
+      <inherits name='com.google.gwt.user.theme.chrome.Chrome'/>
+      <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+
+      <!-- Special effects ... -->
+      <inherits name='com.gwtext.GwtExt'/>
+
+      <!-- Inherits LightParser parser.                               -->
+      <inherits name='com.asemantics.LightParser'/>
+
+      <!-- Inherits MashUp language support.                          -->
+      <inherits name='com.asemantics.MashUp'/>
+
+      <!-- Specify the app entry point class.                         -->
+      <entry-point class='com.asemantics.integration.client.MUpConsole'/>
+
+      <!-- Defines source path. -->
+      <source path="client"/>
+
+      <!-- Servlet registration. -->
+      <servlet path="/httpProxyService" class="com.asemantics.integration.server.proxy.HttpProxyServiceImpl" />
+    
+      <!-- Specify the application specific style sheet.              -->
+      <stylesheet src='MUpConsole.css' />
+	
+</module>

@@ -1,0 +1,114 @@
+The _validation scenarios_ are applications of MUp on real and synthetic
+data meant to verify the applicability of all the implemented features.
+
+==Synthetic Validation Scenario==
+
+This fist scenario is synthetic, this means that the data sources don't really
+exist but are simulated.
+
+===Description===
+
+We have a Web service S1 returning a list of restaurants in a specified city, 
+providing for each restaurant the street in which it is located.
+We've also a Web service S2 returning a list of hotels near a given street.
+We want to combine these sources to obtain a list of restaurants in a given 
+city with a sublist of hotels near each restaurant.
+
+The expected format for S1 is a table like:
+
+||*restaurant name*||*restaurant street*||
+||{{{RN1<city>}}}||{{{RS1<city>}}}||
+||{{{RN2<city>}}}||{{{RS2<city>}}}||
+
+while the expected result for S2 is:
+
+||*Hotel name*||*Stars*||
+||{{{HN1<RestaurantStreet>}}}||{{{stars 1<RestaurantStreet>}}}||
+||{{{HN2<RestaurantStreet>}}}||{{{stars 2<RestaurantStreet>}}}||
+
+===Formalization===
+
+The previous problem can be formalized with _MU_ with the following statements.
+
+{{{
+#01#  S1(city) :  PGet('http://findrestaurants.com/find?city=_', city);
+#02#  RawRomeRestaurants() :  S1('Rome');
+#03#  ListOfRomeRestaurants() :  Path( 'html/body/table/tr', RawRomeRestaurants() );
+#04#  RestaurantName(row)   :  Path( 'td[0]' , row );
+#05#  RestaurantStreet(row) :  Path( 'td[1]' , row );
+#06#  S2(city,street) : PGet('http://findhotels.com/find?city=_street=_', List(city, street) );
+#07#  HotelsInRomeAtStreet(street) : S2('Rome', street);
+#08#  ListOfStreetHotels(street) : Path( 'html/body/table/tr' , HotelsInRomeAtStreet(street) );
+#09#  HotelName(row) :  Path( 'td[0]', row );
+#10#  HotelStars(row) :  Path( 'td[1]' , row );
+#11#  JsonHotel(row) :  Jsonize( '{ hotel-name : "_", hotel-stars : "_" }', 
+      List( HotelName(row), HotelStars(row) ) );
+#12#  HotelsInStreet(street) :  for( ListOfStreetHotels(street), hotel, JsonHotel(hotel) );
+#13#  Restaurant(row) :  Jsonize( '{ restaurant-name : "_", restaurant-street : "_", hotels : _ }', 
+      List(RestaurantName(row), street=RestaurantStreet(row), HotelsInStreet(street)) );
+#14#  RomeRestaurants() : for( ListOfRomeRestaurants(), row,  Restaurant(row) );
+}}}
+
+===Result===
+
+The result of the last statement is the _JSON_ model listed below:
+
+{{{
+[
+	{ 
+		"restaurant-name" : "RN1Rome", 
+		"restaurant-street" : "RS1Rome", 
+		"hotels" : [
+		{ "hotel-name" : "HN1RomeRS1Rome", "hotel-stars" : "SR1RomeRS1Rome" },
+		{ "hotel-name" : "HN2RomeRS1Rome", "hotel-stars" : "SR2RomeRS1Rome" },
+		{ "hotel-name" : "HN3RomeRS1Rome", "hotel-stars" : "SR3RomeRS1Rome" }
+		] 
+	},
+	{ 
+		"restaurant-name" : "RN2Rome", 
+		"restaurant-street" : "RS2Rome", 
+		"hotels" : [
+		{ "hotel-name" : "HN1RomeRS2Rome", "hotel-stars" : "SR1RomeRS2Rome" },
+		{ "hotel-name" : "HN2RomeRS2Rome", "hotel-stars" : "SR2RomeRS2Rome" },
+		{ "hotel-name" : "HN3RomeRS2Rome", "hotel-stars" : "SR3RomeRS2Rome" }
+		] 
+	},
+	{
+		"restaurant-name" : "RN3Rome", 
+		"restaurant-street" : "RS3Rome", 
+		"hotels" : [
+		{ "hotel-name" : "HN1RomeRS3Rome", "hotel-stars" : "SR1RomeRS3Rome" },
+		{ "hotel-name" : "HN2RomeRS3Rome", "hotel-stars" : "SR2RomeRS3Rome" },
+		{ "hotel-name" : "HN3RomeRS3Rome", "hotel-stars" : "SR3RomeRS3Rome" }
+		] 
+	}
+]
+}}}
+
+==Real Validation Scenario==
+
+This  scenario is real, this means that the data sources do really
+exist.
+
+===Description====
+
+Given an RSS feed extract all title elements inside it 
+and show a panel containing them.
+
+===Formalization===
+
+The previous problem can be formalized with _MU_ with the following statements.
+
+{{{
+#01#  Feed()   : PGet("http://www.repubblica.it/rss/homepage/rss2.0.xml", List());
+#02#  Titles() : XPath( 'title', Feed() );
+#03#  JsonTitle(t) : Jsonize('{ "title" : %s }', List(t));
+#04#  JsonTitles() : for( Titles(), title, JsonTitle(title) );
+#05#  Renderize( JsonTitles() );
+}}}
+
+===Result===
+
+The result is the renderization of a list of feed titles inside an auto generated widget.
+
+[http://em-up.googlecode.com/svn/wiki/images/real-validation-scenario-snap.png]

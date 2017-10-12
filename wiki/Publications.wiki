@@ -1,0 +1,12 @@
+#labels Featured
+This section lists all the academic publications released by the _MU_ team.
+
+  # _MU: an hybrid language for Web Mashups_
+  This paper has been accepted at [http://integror.net/mem2009/papers.php WWW2009] 
+
+  WS4   2nd Workshop on Mashups, Enterprise Mashups and Lightweight Composition
+  on the Web (April 20-24, 2009) Madrid, Spain. 
+  
+  [http://em-up.googlecode.com/svn/wiki/papers/www2009.pdf PDF version]
+
+----

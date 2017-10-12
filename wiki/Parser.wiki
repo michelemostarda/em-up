@@ -1,0 +1,5 @@
+
+This section explains the *MU* language parser.
+The parser implementation is based on LightParser.
+
+The MU supported syntax in explained [MUSyntax here].

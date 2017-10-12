@@ -1,0 +1,102 @@
+#labels MU,BNF,Phase-Implementation
+Note: this grammar is subjected to changes.
+
+==MU BNF Grammar==
+
+{{{
+<preposition> ::= <predicate_declaration> ':' <preposition_body> ';'
+                  |
+                  <preposition_body> ';' ;
+}}}
+
+{{{
+<preposition_body> ::= <preposition_element> and_connector <preposition_body>
+                       |
+                       <preposition_element> or_connector  <preposition_body>
+                       |
+                       <preposition_element> [,] <preposition_body>
+                       |
+                       <preposition_element>
+   					   |
+					   <graph>	
+                       |
+                       const
+                       |
+                       number
+                       |
+                       variable
+					   |
+					   true
+					   |
+					   false ;
+}}}
+
+{{{
+<preposition_element> ::= <control>
+                          |
+                          <predicate> ;
+}}}
+
+{{{
+<predicate_declaration> ::= predicate_name '(' <list_of_models> ')'
+                            |
+                            predicate_name '(' ')' ;
+}}}
+
+{{{
+<predicate> ::= predicate_name '(' ')'
+                |
+                predicate_name '(' <list_of_terms> ')'
+                |
+                <declaration> ;
+}}}
+
+{{{
+<list_of_models> ::= <un_grammar_root> <list_of_models>  // Used in predicate declarations.
+                   |
+                   <un_grammar_root> ;
+}}}
+
+{{{
+<list_of_terms> ::= <term> <list_of_terms>  //  Used in predicate invocations.
+                   |
+                   <term> ;
+}}}
+
+{{{
+<term> ::= variable | const | number | last_value | <predicate> | <named_predicate> | <graph> ;
+}}}
+
+{{{
+<named_predicate> ::= <un_grammar_root> '=' <predicate> ;
+}}}
+
+{{{
+<declaration> ::= <un_root> '=' <term> ;
+}}}
+
+{{{
+<control> ::= <if_control>
+              |
+              <for_control> ;
+}}}
+
+{{{
+<if_control> ::= 'if' '(' <term> [,] <predicate> ')'                
+                 |
+                 'if' '(' <term> [,] <predicate> [,] <predicate> ')' ;
+}}}
+
+{{{
+<for_control> ::= 'for' '(' <term> [,] variable [,] <predicate> ')' ;
+}}}
+
+{{{
+<un_root> ::=
+}}}  
+ [UnificationAndOverloading ...]
+
+{{{
+<graph> ::=
+}}} 
+ [GraphSyntax ...]

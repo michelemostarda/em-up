@@ -1,0 +1,11 @@
+==This section explains the _JSONPath_ operation.==
+
+The JSON Path operation implements a subset of the {{{JSONPath}}}
+specification defined [http://goessner.net/articles/JsonPath here]
+and allows to address and extract sub elements of a JSON data.
+
+JSON Path is used by  *MU* to decompose JSON values.
+
+The {{{JSONPath}}} syntax has been formalized in a grammar called _JP_.
+
+The full _JP_ specification and samples can be found [JPSyntax here].

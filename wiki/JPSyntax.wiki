@@ -1,0 +1,35 @@
+==JP BNF Grammar==
+
+{{{
+<jp_root> ::= <accessors_list> ;
+}}}
+
+{{{
+<accessors_list> ::= <accessor> <accessors_list>
+                     |
+                     <accessor> ;
+}}}
+
+{{{
+<accessor> ::= <array_accessor>
+               |
+               <object_accessor> ;
+}}}
+
+{{{
+<array_accessor> ::= '[' number ']' ;
+}}}
+
+{{{
+<object_accessor> ::= '.' variable ;
+}}}
+
+==JP Grammar Examples==
+
+{{{
+[1][2][3]
+
+.aaa.bbb.ccc
+
+.a.b[1][2].c.d[3].e
+}}}

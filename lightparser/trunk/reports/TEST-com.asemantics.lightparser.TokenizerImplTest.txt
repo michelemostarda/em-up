@@ -1,0 +1,89 @@
+Testsuite: com.asemantics.lightparser.TokenizerImplTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec
+------------- Standard Output ---------------
+class com.asemantics.lightparser.Token[a](1,0,2)
+class com.asemantics.lightparser.Token[bb](3,1,0)
+Begin backtrack
+class com.asemantics.lightparser.Token[ccc](6,1,4)
+class com.asemantics.lightparser.Token[dddd](10,2,0)
+Reject backtrack
+class com.asemantics.lightparser.Token[ccc](6,1,4)
+class com.asemantics.lightparser.Token[dddd](10,2,0)
+Begin backtrack
+class com.asemantics.lightparser.Token[eeeee](15,2,6)
+class com.asemantics.lightparser.Token[ffffff](21,3,0)
+Reject backtrack
+class com.asemantics.lightparser.Token[eeeee](15,2,6)
+class com.asemantics.lightparser.Token[ffffff](21,3,0)
+Begin backtrack
+class com.asemantics.lightparser.Token[a](1,0,2)
+class com.asemantics.lightparser.Token[bb](3,1,0)
+class com.asemantics.lightparser.Token[ccc](6,1,4)
+class com.asemantics.lightparser.Token[dddd](10,2,0)
+class com.asemantics.lightparser.Token[eeeee](15,2,6)
+Reject backtrack
+class com.asemantics.lightparser.Token[a](1,0,2)
+class com.asemantics.lightparser.Token[bb](3,1,0)
+class com.asemantics.lightparser.Token[ccc](6,1,4)
+class com.asemantics.lightparser.Token[dddd](10,2,0)
+class com.asemantics.lightparser.Token[eeeee](15,2,6)
+class com.asemantics.lightparser.Token[ffffff](21,3,0)
+null
+Begin backtrack
+Begin backtrack
+class com.asemantics.lightparser.Token[a](1,0,2)
+class com.asemantics.lightparser.Token[bb](3,1,0)
+Begin backtrack
+class com.asemantics.lightparser.Token[ccc](6,1,4)
+class com.asemantics.lightparser.Token[dddd](10,2,0)
+Reject backtrack
+class com.asemantics.lightparser.Token[ccc](6,1,4)
+class com.asemantics.lightparser.Token[dddd](10,2,0)
+Consume backtrack
+class com.asemantics.lightparser.Token[eeeee](15,2,6)
+class com.asemantics.lightparser.Token[ffffff](21,3,0)
+Consume backtrack
+Begin backtrack
+Begin backtrack
+class com.asemantics.lightparser.Token[a](1,0,2)
+class com.asemantics.lightparser.Token[bb](3,1,0)
+class com.asemantics.lightparser.Token[ccc](6,1,4)
+Consume backtrack
+Begin backtrack
+Reject backtrack
+Reject backtrack
+class com.asemantics.lightparser.Token[a](1,0,2)
+class com.asemantics.lightparser.Token[bb](3,1,0)
+class com.asemantics.lightparser.Token[ccc](6,1,4)
+value : *
+value : 0
+value : 1
+value : 2
+value : 3
+value : 4
+value : *
+value : 5
+value : *
+value : *
+value : 'a b * c d'
+value : 6
+value : 7
+value : "; 10 * 9 * 8 *"
+value : 8
+value : 9
+value : 10
+value : *
+------------- ---------------- ---------------
+
+Testcase: testSetTokenSeparatorOk took 0.002 sec
+Testcase: testSetTokenSeparatorNokDuplicateToken took 0 sec
+Testcase: testTokenizeWithEndStream took 0 sec
+Testcase: testTokenize took 0.002 sec
+Testcase: testTokenizeWithBacktracking took 0 sec
+Testcase: testWithBacktrackingAtBegin took 0.001 sec
+Testcase: testNestedTransactions took 0 sec
+Testcase: testCleanupAfterConsume took 0 sec
+Testcase: testCommentBlock took 0 sec
+Testcase: testSingleQuoteDelimitedString took 0 sec
+Testcase: testDoubleQuoteDelimitedString took 0 sec
+Testcase: testTokenSeparators took 0.001 sec

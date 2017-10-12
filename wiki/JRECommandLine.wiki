@@ -1,0 +1,302 @@
+==This section explains how to use the JRE Command Line.==
+
+The _MU JRE console_ is a command line _Java_ console providing a fully featured _MU_ interpreter.
+
+===Prerequisites===
+
+To run the _MU_ console you need the _Java Runtime Environment_ (>= 1.5) installed and configured.
+
+===Run the console===
+
+Starting from the _MUp_ distribution root directory, go to the trunk of _jre-profile_:
+
+{{{
+ <MUP_ROOT>$ cd jre-profile/trunk
+}}}
+
+and then run:
+
+{{{
+ <MUP_ROOT>/jre-profile/trunk$ ant clean dist && cd bin && ./mup-shell.sh 
+}}}
+
+If the JRE Profile has been already distributed you need just to go to the bin directory and
+launch the shell script:
+
+{{{
+ <MUP_ROOT>/jre-profile/trunk$ cd bin && ./mup-shell.sh 
+}}}
+
+===Console Welcome===
+
+When the JRE console starts, it provides some informations like the current version and
+the list of command handlers:
+
+{{{
+  List  of available handlers {
+    [\s*\:((\w*)\s*(.*))(MUCommands)]	MUCommands: Basic shell command interpreter.
+    [*]	MUCommandLine: MUcommand line console [version 0.7]
+  }
+}}}
+
+This means that the console provides two command handlers: the first
+is the _Basic shell command interpreter_ (from now BSCI) and implements some general meta commands.
+To direct commands to this first interpreter start every command with a {{{:}}}.
+
+The second handler is the effective _MU_ interpreter and will receive every command
+ignored by the first handler (i.e. every command not starting with {{{:}}}).
+
+To obtain a list of available commands from the BSCI type from the console prompt:
+
+{{{
+  > :help
+}}}
+
+You'll obtain something like this:
+
+{{{
+  > :help
+	Usage: <command> <parameters>
+    available commands:
+	cd              change the current directory
+	debug            show/set the debug flag
+	echo             Echo the given parameters
+	exit             exit the shell
+	help             print this help
+	loadcontext      Load the programmative context
+	loadresult       Load a result from file
+	ls               List the content of the current directory
+	pwd              print the current directory
+	result           Print out the specified result
+	results          List past execution results
+	resultsclear     Clear results buffer
+	set              Set a variable value or list defined variables
+	shell            Execute native shell command
+	storecontext     Store the programmative context
+	storeresult      Store a result in a file
+	unset            Unset a variable value
+}}}
+
+===exit===
+
+Exits from the _MUp_ shell.
+
+{{{
+:exit
+}}}
+
+----
+
+===help===
+
+Prints the shell commands help. Prints help for a specific command.
+
+{{{
+:help
+}}}
+
+{{{
+:help COMMAND
+}}}
+
+----
+
+===cd===
+
+Changes the currend work directory, it expects a relative or absolute path
+expressed in the syntax provided by the underlying operative system.
+
+{{{
+:cd bin
+}}}
+
+{{{
+:cd ..
+}}}
+
+{{{
+:cd /path/to/dir
+}}}
+
+----
+
+===ls===
+
+Lists the content of the current directory.
+
+{{{
+:ls
+}}}
+
+===pwd===
+
+Shows the current directory _absolute_ path.
+
+{{{
+:pwd
+}}}
+
+----
+
+===set===
+
+Allows to set a variable.
+
+A variable can be defined as:
+
+{{{
+:set foo bar
+}}}
+
+or with composite variable name and value:
+{{{
+:set "the var name" "the var value"
+}}}
+
+===unset===
+
+Allows to unset a defined variable.
+
+{{{
+:unset foo
+}}}
+
+{{{
+:unset "the var name"
+}}}
+
+===echo===
+
+Echoes the argument string expanding all the contained parameters. 
+
+{{{
+:echo This is foo: ${foo} and this is the var: ${the var name}  
+}}}
+
+----
+
+===loadcontext===
+
+Loads a context ( a set of MU statements ) from filesystem 
+to the console interpreter.
+
+The command accepts a string representing the name of the file read to load the context.
+If the specified string is {{{foo}}} then the content will be retrieved from the
+current directory reading the file {{{foo.mu}}}.
+
+{{{
+:loadcontext mylastmashup
+}}}
+
+===storecontext===
+
+Stores the current console context ( the set of MU statements defined by the user ) into filesystem. 
+
+The command accepts a string representing the name of the file in which to write the context.
+If the specified string is {{{bar}}} then the content will be written in the
+current directory into the file {{{bar.mu}}}.
+
+Contexts saved with {{{storecontext}}} can be subsequently reloaded with the {{{loadcontext}}} command.
+
+{{{
+:storecontext anewmashup
+}}}
+
+----
+
+===results===
+
+Lists all the collected results, the datetime, the result types, an abstract and the
+commands used to generate them.
+
+{{{
+> :results
+[0] [Thu May 28 01:31:57 CEST 2009][HTML] 'Get("http://www.somedomain.com", List());'
+<!DOCTYPE html PUBLI
+
+[1] [Thu May 28 01:31:59 CEST 2009][HTML] 'Get("http://www.someotherdomain.it", List());'
+<!DOCTYPE html PUBLI
+
+[2] [Thu May 28 01:32:01 CEST 2009][HTML] 'Get("http://www.anotherdomain.net", List());'
+<!DOCTYPE html PUBLI
+
+[3 results]
+}}}
+
+===result===
+
+Shows a specific result:
+
+{{{
+:result 2
+[Thu May 28 01:31:57 CEST 2009][HTML] 'Get("http://www.anotherdomain.net", List());'
+//========================================
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>
+...
+</body>
+</html>
+
+========================================//
+}}}
+
+===loadresult===
+
+Loads a previously generated result from file to the results buffer
+of the console.
+
+For example, the command
+{{{
+:loadresult apastresult
+}}}
+
+will look in the current directory for a file called
+{{{
+apastresult.result
+}}}
+If found it will be loaded and will result accessible by the other commands
+applicable on results.
+
+===storeresult===
+
+Stores a current in-buffer result into a file.
+
+For example the command
+{{{
+:storeresult 3 myresult
+}}}
+will store the content of results buffer at location {{{3}}}
+into a file called {{{myresult.result}}} in the current directory.
+
+===resultsclear===
+
+Removes the entire content of the results buffer, freeing the occupied memory.
+
+----
+===shell===
+
+Executes a native process in the underlying operative system.
+
+{{{
+:shell cat myfile.txt
+}}}
+
+----
+
+===debug===
+
+Shows and sets the debug flag.
+
+{{{
+:debug
+}}}
+
+{{{
+:debug true
+}}}
+
+{{{
+:debug false
+}}}

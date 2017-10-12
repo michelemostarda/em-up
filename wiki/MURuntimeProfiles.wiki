@@ -1,0 +1,19 @@
+The _MUp_ framework is based on a _Core_ module and several _Runtimes_.
+
+The _Core_ contains the language _Parser_, the _Processor_, the _Renderer_ and other auxiliary sub-modules.
+The _Core_ is written in Java 1.5, in respect of the restrictions of _GWT_, this means mainly that the code
+  * doesn't contain any dependency with external libraries,
+  * doesn't contain any function based on _Introspection_. 
+
+The _Runtime_ profiles provide the logic to make the core running. The principal purpose of a runtime is to
+implement the {{{NativeImpl}}} class, implementation of 
+[http://em-up.googlecode.com/svn/trunk/docs/javadoc/com/asemantics/mashup/nativepkg/Native.html Native].
+The {{{NativeImpl}}} class defines all the logic used to interact with the underlying runtime.
+
+The following _runtimes_ has been provided:
+  * GWT Runtime: based on GWT, allows to use _MUp_ within a web console.
+  * JRE Runtime: based on the standard Java Runtime, allows to use _MUp_ programmatically or with a shell command line.
+
+The picture below explains how to compose the class paths for the _runtimes_ and the LightParser library.
+
+[http://em-up.googlecode.com/svn/wiki/images/multi-profiling-classpath.png] 

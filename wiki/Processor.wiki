@@ -1,0 +1,23 @@
+
+===Introduction===
+
+The _Processor_ module is responsible of executing the program generated
+by the _Parser_ module, handling the execution stack, and the execution
+context.
+
+The main classes of the processor module and their relationship are shown 
+in the figure below.
+
+[http://em-up.googlecode.com/svn/wiki/images/processor-uml.png]
+_Processor module main classes and relationships._
+
+  #{{{Operation}}}: defines the basic operation that can be executed by the _MU Processor_.
+  #{{{InvokeOperation}}}: defines the invocation (_call_) of an operation defined in context.
+  #{{{OperationsSequence}}}: defines a sequence of operations.
+  #{{{Invocable}}}: defines the access point of a sequence of operations.
+  #{{{AbstractOperation}}}: base class used to extend an operation accepting arguments.
+  #{{{Signature}}}: defines the signature of an _invocable_ operation's sequence.
+  #{{{ExecutionStack}}}: the stack of the _MU Processor_.
+  #{{{ExecutionContext}}}: the context defining operations and variables of the _MU Processor_.
+  #{{{Argument}}}: a class modeling any actual parameter passed to an operation's invocation.
+  #{{{Value}}}: base interface defining all types supported by the _MU Processor_.

@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+
+<!-- 
+	***********************************************************
+	*   gwt-profile 0.7 [nightmare] - Build System.
+	*
+   	*	Main targets:
+	*
+ 	* help        : provides usage help.
+	* dist        : distributes the library.
+	* clean       : cleanup all the generated files.
+	* compile.gwt : runs the GWT compiler.
+    * dist        : distributes the library.
+    * help        : shows the build help.
+    * javadoc     : generates the Javadoc documentation.
+    * test        : runs the library test cases.
+    * uml         : generates the UML documentation.
+	*
+	* authors: Michele Mostarda ( michele.mostarda@gmail.com )
+	* version: $Id: build.xml 185 2009-08-19 16:18:42Z michele.mostarda $
+	*
+	***********************************************************
+-->
+
+<project 
+	default="help"
+	name="gwt-profile" 
+	basedir="."
+>
+
+  	<!-- =================================================================== -->
+  	<!-- Build properties                                                    -->
+  	<!-- =================================================================== -->
+  	<property name="name"    value="mup-gwt-profile"/>
+  	<property name="Name"    value="Em Up GWT Profile"/>
+  	<property name="version" value="0.7"/>
+  	<property name="year"    value="2009"/>
+
+  	<property name="debug" value="on"/>
+
+	<property name="war.dir"     value="${basedir}/war"/>
+	
+  	<property name="src.dir"     value="${basedir}/src"/>
+	<property name="classes.dir" value="${war.dir}/WEB-INF/classes"/>
+  	<property name="javadoc.dir" value="${basedir}/javadoc"/>
+  	<property name="umldoc.dir"  value="${basedir}/uml"/>
+
+
+	<property name="lightparser.dir"   value="${basedir}/../../lightparser/trunk/" />
+	<property name="core.dir"   	   value="${basedir}/../../core/trunk/" />
+	<property name="lib.dir"           value="${basedir}/../../lib"/>
+	<property name="test.dir"          value="test"/>
+
+	<!-- Echoing properties. -->
+	<echoproperties>
+		<propertyset>
+	    	<propertyref regex=".*dir"/>
+		</propertyset>
+	</echoproperties>
+	  
+  	<!-- =================================================================== -->
+  	<!-- Classpaths.				                                         -->
+  	<!-- =================================================================== -->
+
+	<path id="http.commons.classpath">
+		<fileset dir = "${lib.dir}/">
+			<include name="commons-codec-1.3.jar"/>
+			<include name="commons-logging-1.1.1.jar"/>
+			<include name="commons-httpclient-3.1.jar"/>
+		</fileset>
+  	</path>
+
+	<path id="jsontools.classpath">
+		<fileset dir = "${lib.dir}/">
+			<include name="antlr-2.7.7.jar"/>
+			<include name="antlr-3.0.1.jar"/>
+			<include name="jsontools-core-1.5.jar"/>
+		</fileset>
+  	</path>
+
+	<path id="gwt.classpath">
+		<pathelement path = "${lib.dir}/gwt/gwt-user.jar"/>
+		<pathelement path = "${lib.dir}/gwt/gwt-dev-mac.jar"/>
+		<pathelement path = "${lib.dir}/gwt/gwt-benchmark-viewer.jar"/>
+		<pathelement path = "${lib.dir}/gwt/gwt-servlet.jar"/>
+	</path>
+
+	<path id="gwt-ext.classpath">
+		<pathelement path = "${lib.dir}/gwtext-2.0.5/gwtext.jar"/>
+	</path>
+	
+  	<path id="test.build.classpath">
+	    <path        refid = "jre.build.classpath"/>
+		<pathelement path  = "${lib.dir}/junit.jar"/>
+    </path>
+
+    <path id="test.classpath">
+        <path refid = "test.build.classpath"/>
+		<pathelement path = "${test.dir}"/>
+    </path>
+
+  <!-- =================================================================== -->
+  <!-- Targets.						                                       -->
+  <!-- =================================================================== -->
+	
+	<target
+			name        = "help"
+			description = "Shows the build help."
+	>
+      <echo>=======================================================================</echo>
+      <echo>${Name}</echo>
+      <echo>=======================================================================</echo>
+      <exec executable="${ant.home}/bin/ant" os="Linux, Solaris, SunOS, FreeBSD, Mac OS X, Mac OS">
+          <arg value="-projecthelp" />
+      </exec>
+      <exec executable="${ant.home}/bin/ant.bat" os="Windows NT, Windows 2000, Windows XP">
+          <arg value="-projecthelp" />
+      </exec>
+	  <echo/>
+      <echo>=======================================================================</echo>
+				
+	</target>
+		
+	<target
+		name        = "compile"
+		description = "Compiles the GWT profile server side."
+	>
+		<mkdir dir="${classes.dir}"/>
+		<javac
+			destdir="${classes.dir}"
+			debug="${debug}"
+		>
+			<src path = "${src.dir}"/>
+			<src path = "${core.dir}/src"/>	
+			<src path = "${lightparser.dir}/src"/>	
+			<classpath refid="http.commons.classpath"/>
+			<classpath refid="gwt.classpath"/>
+			<classpath refid="gwt-ext.classpath"/>
+		</javac>
+	</target>
+	
+	<target
+		name = "compile.gwt"
+		description = "Compiles the GWT profile"
+		depends = "compile" 
+	>
+		<java
+	    	dir         = "${basedir}"
+	        classname   = "com.google.gwt.dev.Compiler"
+			fork        = "true"
+	        failonerror = "true"
+	        maxmemory   = "256M"
+	    >
+			<jvmarg value="-XstartOnFirstThread"/>
+	    	
+			<arg value="-logLevel"/>
+			<arg value="INFO"/>
+			<arg value="-style"/>
+			<arg value="DETAILED"/>
+			<arg value="-war"/>
+			<arg value="${war.dir}"/>
+			<arg value="com.asemantics.integration.MUpConsole"/>
+
+			<classpath path = "${lightparser.dir}/src"/>
+			<classpath path = "${lightparser.dir}/gwt_module/src"/>
+			<classpath path = "${core.dir}/src"/>	
+			<classpath path = "${src.dir}"/>
+			
+			<classpath path = "${classes.dir}"/>
+			<classpath refid="http.commons.classpath"/>
+			<classpath refid="gwt.classpath"/>
+			<classpath refid="gwt-ext.classpath"/>
+		</java>	
+	</target>
+	
+	<target
+		name = "shell.gwt"
+		description = "Runs the MUp GWT shell"
+		depends = "compile.gwt"
+	>
+		<java
+	    	dir         = "${basedir}"
+	        classname   = "com.google.gwt.dev.HostedMode"
+			fork        = "true"
+	        failonerror = "true"
+	        maxmemory   = "256M"
+	    >
+			<jvmarg value="-XstartOnFirstThread"/>
+	    	
+			<arg value="-logLevel"/>
+			<arg value="INFO"/>
+			<arg value="-style"/>
+			<arg value="PRETTY"/>
+			<arg value="-startupUrl"/>
+			<arg value="MUpConsole.html"/>
+			<arg value="com.asemantics.integration.MUpConsole"/>
+
+			<classpath path = "${lightparser.dir}/src"/>
+			<classpath path = "${lightparser.dir}/gwt_module/src"/>
+			<classpath path = "${core.dir}/src"/>	
+			<classpath path = "${src.dir}"/>
+			
+			<classpath path = "${classes.dir}"/>
+			<classpath refid="http.commons.classpath"/>
+			<classpath refid="gwt.classpath"/>
+			<classpath refid="gwt-ext.classpath"/>
+		</java>	
+	</target>
+	
+	<target
+		name        = "clean"
+		description = "Removes all generated files"
+	>
+		<delete dir="${classes.dir}"/>
+		<delete dir="${dist.dir}"/>
+		<delete dir="${test.reports.dir}"/>
+		<delete dir="${javadoc.dir}"/>
+		<delete dir="${umldoc.dir}"/>		
+    </target>
+	
+	<target
+		name        = "javadoc"
+		description = "Generates the Javadoc documentation"
+	>
+		<mkdir dir="${javadoc.dir}"/>
+		<javadoc 
+			destdir="${javadoc.dir}" 
+			author="true" 
+			version="true"
+            use="true" 
+			windowtitle="${Name} - Javadoc"
+			linksource="true"
+		>
+            <fileset dir="${src.dir}">
+				<include name="**/*.java"/>
+			</fileset>
+			
+			<classpath path = "${lightparser.dir}/src"/>
+			<classpath path = "${lightparser.dir}/gwt_module/src"/>
+			<classpath path = "${core.dir}/src"/>	
+			
+			<classpath path = "${classes.dir}"/>
+			<classpath refid="http.commons.classpath"/>
+			<classpath refid="gwt.classpath"/>
+			<classpath refid="gwt-ext.classpath"/>
+			
+            <doctitle><![CDATA[<h1>${Name} API</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2008 Michele Mostarda. All Rights Reserved.</i>]]></bottom>
+            <link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
+        </javadoc>
+	</target>
+	
+	<target 
+		name        = "uml" 
+		description = "Generates UML documentation."
+	>
+		<mkdir dir="${umldoc.dir}"/>
+		<javadoc 
+			packagenames="com.asemantics.*" 
+			destdir="${umldoc.dir}" 
+	        private="true"
+		>
+			<fileset dir="${src.dir}">
+				<include name="**/*.java"/>
+			</fileset>
+		
+			<classpath path = "${lightparser.dir}/src"/>
+			<classpath path = "${lightparser.dir}/gwt_module/src"/>
+			<classpath path = "${core.dir}/src"/>	
+		
+			<classpath path = "${classes.dir}"/>
+			<classpath refid="http.commons.classpath"/>
+			<classpath refid="gwt.classpath"/>
+			<classpath refid="gwt-ext.classpath"/>
+		
+	    	<doclet 
+				name="org.umlgraph.doclet.UmlGraphDoc" 
+				path="${lib.dir}/tools/UMLGraph.jar"
+			>
+	        	<param name="-inferrel"/>
+	            <param name="-inferdep"/>
+	            <param name="-hide" value="java.*"/>
+	            <param name="-collpackages" value="java.util.*"/>
+	            <param name="-qualify"/>
+	            <param name="-postfixpackage"/>
+	            <param name="-nodefontsize" value="9"/>
+	            <param name="-nodefontpackagesize" value="7"/>
+	            <param name="-link" value="http://java.sun.com/j2se/1.5.0/docs/guide/javadoc/doclet/spec"/>
+	            <param name="-link" value="http://java.sun.com/j2se/1.5/docs/api"/>
+			</doclet>
+			</javadoc>
+	</target>
+	
+</project>

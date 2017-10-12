@@ -1,0 +1,44 @@
+==XP BNF Grammar==
+
+{{{
+<path> ::= 
+  '/' <path_list>  // absolute path.
+  |
+  <path_list> ;    // relative path.
+
+
+<path_list> ::= 
+  <path_elem> '/' <path_list>
+  |
+  <path_elem> ;
+
+
+<path_elem> ::= 
+  node '[' <condition> ']'   // Filtered node
+  |
+  node ;                     // Node
+
+
+<condition> ::= 
+  <identifier> <operator> value 
+  | 
+  index ;
+
+
+<identifier> ::= '@' attribute | node ;
+
+
+<operator> ::= '<' '=' | '>' '=' | '!' '=' | '<' | '>' | '=' ;
+}}}
+
+==XP Grammar Examples==
+
+{{{
+/node1/node2/node3
+
+/node1/node2[@attr1=value2]
+
+/node1/node2/node3[2]
+
+/node1[@attrn1<vn1]/node2[node2=value2]/node3[2]
+}}}

@@ -1,0 +1,17 @@
+_MUp_ is a new programming language framework based on _MU_, meant to simplify data aggregation and transformation.
+
+_MU_ is characterized by the following features: 
+
+  # It is a scripting language. This means that any mashup application written in _MU_ can be elaborated, stored and exchanged as text. Neither special editors nor browser plugins are needed to deal with _MU.
+  # It provides support for unification over JSON objects. This support is based on the concept of _JSON Model_. For further details see [UnificationAndOverloading].
+  # It is based on the _Type Morphing_ paradigm, that is the ability of the language of casting any primitive type to another one where needed (see [TypeMorphing]).
+  # It provides _JSONPath_ native support. Being JSON the internal representation format for any MU type, it is needed to have powerful operators to address sub parts of such objects. _JSON Path_ is the candidate for language for this purpose, since it is compact, powerful and easy to understand.
+  # It provides _UI Induction_  (see [Renderer]), that is the ability of auto generating a User Interface from a _JSON_ data. The auto generation improves the usability of _live_ data.
+  # It defines both JRE (Java Runtime Environment) and GWT (Google Web Toolkit) profiles. _MUp_ is written in Java (JRE 1.5.0) but the language core can be translated in Javascript with GWT, allowing it to run entirely in a web browser. The possibility to run MUp as GWT and a JRE application is called _multi profiling_. See [MURuntimeProfiles].
+  # It provides _Graph_ manipulation native support. The graph manipulation enables the language to deal with _Semantic Data_.
+  # It provides _XP_ native support (see [Digester]).
+
+In addition, _MU_ supports other capabilities common to other languages:
+  #_Arithmetic_ and _logical_ operators support: basic arithmetic, conditional and logical operators are supported.
+  #_List_ and _Map_ support.
+  #_String manipulation_: basic string manipulation based on _regexp_.

@@ -1,0 +1,11 @@
+==============
+ Core Module
+==============
+ 
+src    Source code files.
+
+To constitute a complete classpath this module requires the classes 
+defined in the jre-module or in the gwt-module.
+
+See the complete documentation in Wiki pages.
+

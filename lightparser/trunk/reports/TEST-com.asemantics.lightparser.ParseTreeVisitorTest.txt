@@ -1,0 +1,74 @@
+Testsuite: com.asemantics.lightparser.ParseTreeVisitorTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec
+------------- Standard Output ---------------
+TreeNode: root
+precompile: 1
+TreeNode: 1
+precompile: 2
+TreeNode: 2
+precompile: 3
+TreeNode: 3
+precompile: 4
+postcompile 4{
+}
+TreeNode: 4
+postcompile 3{
+4
+}
+TreeNode: 3
+precompile: 5
+postcompile 5{
+}
+TreeNode: 5
+precompile: 6
+postcompile 6{
+}
+TreeNode: 6
+postcompile 2{
+3
+5
+6
+}
+TreeNode: 2
+precompile: 7
+postcompile 7{
+}
+TreeNode: 7
+postcompile 1{
+2
+7
+}
+TreeNode: 1
+TreeNode: root
+precompile: 1
+precompile: 2
+precompile: 3
+precompile: 4
+postcompile 4{
+}
+postcompile 3{
+4
+}
+precompile: 5
+postcompile 5{
+}
+precompile: 6
+postcompile 6{
+}
+postcompile 2{
+3
+5
+6
+}
+precompile: 7
+postcompile 7{
+}
+postcompile 1{
+2
+7
+}
+Result: [1]
+------------- ---------------- ---------------
+
+Testcase: testRun took 0.002 sec
+Testcase: testVisit took 0.001 sec

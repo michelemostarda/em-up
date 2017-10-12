@@ -1,0 +1,12 @@
+<module>
+
+      <!-- Inherit the core Web Toolkit stuff. -->
+      <inherits name='com.google.gwt.user.User'/>
+
+      <!-- Defines source path to all. -->
+      <source path="lightparser"/>
+
+      <!-- Specify the library entry point class. -->
+      <entry-point class='com.asemantics.lightparser.gwt.LightParser'/>
+	
+</module>

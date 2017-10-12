@@ -1,0 +1,212 @@
+Testsuite: com.asemantics.lightparser.ParserTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 sec
+------------- Standard Output ---------------
+Parsing started.
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[x](1,0,2)
+Production stack in
+ProductionStack {	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[x](3,0,4)
+Production stack in
+ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[x](5,0,6)
+Production stack in
+ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[x](7,0,8)
+Production stack in
+ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[x](9,0,10)
+Production stack in
+ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[x](11,0,12)
+Production stack in
+ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[x](13,0,14)
+Production stack in
+ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[y](15,0,16)
+Backtracking rejected: ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[y](15,0,16)
+Backtracking rejected: ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]}
+Production stack out
+Backtracking rejected: ProductionStack {	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]	Production: Term(list)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[x](13,0,14)
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+bpe: com.asemantics.lightparser.BacktrackingParserException: Cannot satisfy production. Unexpected end of string. Expected: 'terminal1'.
+class com.asemantics.lightparser.ParseTree{'terminal2 terminal3 terminal1'[{'head'[{'nonterminal1'[{<DefaultTerminal>'terminal2'}]}{'nonterminal2'[{<DefaultTerminal>'terminal3'}]}{<DefaultTerminal>'terminal1'}]}]}
+Parsing started.
+Backtracking started.
+Production stack in
+ProductionStack {	Production: Term(nonterminal1)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal1](1,0,10)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal2](11,0,20)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal3](21,0,30)
+Backtracking rejected: ProductionStack {	Production: Term(nonterminal1)[0]}
+Production stack out
+Backtracking rejected: ProductionStack {}
+Backtracking started.
+Production stack in
+ProductionStack {	Production: Term(nonterminal2)[1]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal1](1,0,10)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal2](11,0,20)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal3](21,0,30)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal4](31,0,40)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal5](40,0,49)
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Parsing ended.
+class com.asemantics.lightparser.ParseTree{'terminal1 terminal2 terminal3 terminal4 terminal5'[{'root'[{'nonterminal2'[{<DefaultTerminal>'terminal1'}{<DefaultTerminal>'terminal2'}{<DefaultTerminal>'terminal3'}{<DefaultTerminal>'terminal4'}{<DefaultTerminal>'terminal5'}]}]}]}
+Parsing started.
+Backtracking started.
+Production stack in
+ProductionStack {	Production: Term(nonterminal1)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal1](1,0,10)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal2](11,0,20)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal3](21,0,30)
+Backtracking consumed.
+Production stack out
+Production stack in
+ProductionStack {	Production: Term(nonterminal2)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal4](31,0,40)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal5](40,0,49)
+Backtracking rejected: ProductionStack {	Production: Term(nonterminal2)[0]}
+Production stack out
+Backtracking rejected: ProductionStack {}
+Backtracking started.
+Production stack in
+ProductionStack {	Production: Term(nonterminal3)[1]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal1](1,0,10)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal2](11,0,20)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal3](21,0,30)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal4](31,0,40)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal5](40,0,49)
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Parsing ended.
+class com.asemantics.lightparser.ParseTree{'terminal1 terminal2 terminal3 terminal4 terminal5'[{'root'[{'nonterminal3'[{<DefaultTerminal>'terminal1'}{<DefaultTerminal>'terminal2'}{<DefaultTerminal>'terminal3'}{<DefaultTerminal>'terminal4'}{<DefaultTerminal>'terminal5'}]}]}]}
+Parsing started.
+Backtracking started.
+Production stack in
+ProductionStack {	Production: Term(nonterminal1)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal1](1,0,10)
+Production stack in
+ProductionStack {	Production: Term(nonterminal1)[0]	Production: Term(nonterminal4)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal2](11,0,20)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal3](21,0,30)
+Backtracking consumed.
+Production stack out
+Next token retrieved: class com.asemantics.lightparser.Token[terminal4](31,0,40)
+Backtracking consumed.
+Production stack out
+Production stack in
+ProductionStack {	Production: Term(nonterminal2)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal5](41,0,50)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal6](51,0,60)
+Backtracking rejected: ProductionStack {	Production: Term(nonterminal2)[0]}
+Production stack out
+Backtracking rejected: ProductionStack {}
+Backtracking started.
+Production stack in
+ProductionStack {	Production: Term(nonterminal3)[1]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal1](1,0,10)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal2](11,0,20)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal3](21,0,30)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal4](31,0,40)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal5](41,0,50)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal6](51,0,60)
+Next token retrieved: class com.asemantics.lightparser.Token[terminal7](60,0,69)
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Parsing ended.
+class com.asemantics.lightparser.ParseTree{'terminal1 terminal2 terminal3 terminal4 terminal5 terminal6 terminal7'[{'root'[{'nonterminal3'[{<DefaultTerminal>'terminal1'}{<DefaultTerminal>'terminal2'}{<DefaultTerminal>'terminal3'}{<DefaultTerminal>'terminal4'}{<DefaultTerminal>'terminal5'}{<DefaultTerminal>'terminal6'}{<DefaultTerminal>'terminal7'}]}]}]}
+Parsing started.
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal](1,0,9)
+Production stack in
+ProductionStack {	Production: Term(recursive_nonterminal)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal](10,0,18)
+Production stack in
+ProductionStack {	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal](19,0,27)
+Production stack in
+ProductionStack {	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal](28,0,36)
+Production stack in
+ProductionStack {	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal](37,0,45)
+Production stack in
+ProductionStack {	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal](46,0,54)
+Production stack in
+ProductionStack {	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal](54,0,62)
+Production stack in
+ProductionStack {	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]}
+Production stack out
+Backtracking rejected: ProductionStack {	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]	Production: Term(recursive_nonterminal)[0]}
+Backtracking started.
+Next token retrieved: class com.asemantics.lightparser.Token[terminal](54,0,62)
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Production stack out
+Backtracking consumed.
+Parsing ended.
+class com.asemantics.lightparser.ParseTree{'terminal terminal terminal terminal terminal terminal terminal'[{'recursive_nonterminal'[{<DefaultTerminal>'terminal'}{'recursive_nonterminal'[{<DefaultTerminal>'terminal'}{'recursive_nonterminal'[{<DefaultTerminal>'terminal'}{'recursive_nonterminal'[{<DefaultTerminal>'terminal'}{'recursive_nonterminal'[{<DefaultTerminal>'terminal'}{'recursive_nonterminal'[{<DefaultTerminal>'terminal'}{'recursive_nonterminal'[{<DefaultTerminal>'terminal'}]}]}]}]}]}]}]}]}
+------------- ---------------- ---------------
+
+Testcase: testPartiallySatisfiedStreamDetection took 0.009 sec
+Testcase: testUnexpectedEndOfStringErrorReporting took 0 sec
+Testcase: testUnespectedTokenErrorReporting took 0 sec
+Testcase: testForwardParsing took 0.002 sec
+Testcase: testSimpleBacktracking took 0.001 sec
+Testcase: testNestedBacktracking took 0.001 sec
+Testcase: testNestedBacktrackingWithPartialCommit took 0.001 sec
+Testcase: testRecursiveProduction took 0.001 sec

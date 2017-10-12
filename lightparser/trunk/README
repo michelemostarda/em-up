@@ -1,0 +1,21 @@
+====================
+ LightParser Module
+====================
+
+The grammar parser of MUp.
+
+build.xml         Ant build file.
+compile-gwt.sh    Compiles the lightparser in GWT.
+gwt_module        GWT module definition for LightParser.
+lightparser.i*    IntelliJ 7.4(>) project files. 
+src               Source files.
+test              Test files.
+
+
+Help
+----
+
+To obtain help from the build system type:
+
+  $ ant help
+

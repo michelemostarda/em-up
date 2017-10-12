@@ -1,0 +1,40 @@
+<html>
+<head><script>
+var $gwt_version = "1.6.4";
+var $wnd = parent;
+var $doc = $wnd.document;
+var $moduleName, $moduleBase;
+var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null;
+$stats && $stats({moduleName:'com.asemantics.LightParser',subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
+</script></head>
+<body>
+<script><!--
+var $intern_3 = 'com.asemantics.lightparser.gwt.LightParser', $intern_1 = 'moduleStartup', $intern_2 = 'onModuleLoadStart', $intern_0 = 'startup';
+var _;
+function java_lang_Object(){
+}
+
+_ = java_lang_Object.prototype = {};
+_ = String.prototype;
+function init(){
+  !!$stats && $stats({moduleName:$moduleName, subSystem:$intern_0, evtGroup:$intern_1, millis:(new Date()).getTime(), type:$intern_2, className:$intern_3});
+}
+
+function gwtOnLoad(errFn, modName, modBase){
+  $moduleName = modName;
+  $moduleBase = modBase;
+  if (errFn)
+    try {
+      init();
+    }
+     catch (e) {
+      errFn(modName);
+    }
+   else {
+    init();
+  }
+}
+
+$stats && $stats({moduleName:'com.asemantics.LightParser',subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalEnd'});
+if ($wnd.com_asemantics_LightParser) $wnd.com_asemantics_LightParser.onScriptLoad();
+--></script></body></html>

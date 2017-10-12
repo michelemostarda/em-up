@@ -1,0 +1,138 @@
+== MUp Development Roadmap ==
+
+This section shows the MUp framework's roadmap.
+Every line is a distinct developing item.
+
+_The following activities are annotated with effort in hours and sorted by importance._
+
+== Completed tasks ==
+
+Verify result of validation scenario.(1) *DONE*
+
+Add support for CDATA section in Digester. (3) *DONE*
+
+Fix native location error in stack trace. (2) *DONE*
+
+Add export of Programmative Context.(2) *DONE* ( see PContext() )
+
+Add _AND (&)_ and _OR (|)_ connectors in predicate definition. (2) *DONE*
+
+Complete integration with _gwt-ext_. *DONE*
+
+Implement signature type support. *DONE*
+
+Implement language Unification support *DONE*
+
+Add unification support based in JSON models. *DONE*
+
+Add Process() predicate able to invoke commands at runtime. (1) *DONE*
+
+Add Type() predicate. (3) *DONE*
+
+Predicate overloading. (4) *DONE*
+
+Add arguments unification in predicate invocation (8). *DONE*
+
+Add support for type declaration (explicit casting). (10) *DONE*
+
+Enable the usage of model in assignment to perform unification. 
+{{{ D([x,y], b) : {'a' : x, 'b' : y | o} = P(x, y, b); }}} (3) *DONE*
+
+Implement JSONPath support. {{{ x = JPath(value, '.a.b[2]'); }}} (6) *DONE*
+
+Extract {{{FormalParameters}}} from Signature and preserve argument names. (2) *DONE*
+
+Refine Exception handling in function definition. (4) *DONE*
+
+Implement JSON to JSONModel and JSONModel to GUIModel transformations.(3) *DONE*
+
+Implement the recursive application of a Value (converted as JSONValue) 
+over a given predicate name, used to find matching patterns inside 
+a complex object. (3) *DONE*
+   Implement the JsonVisitor. (1)
+   Implement the {{{Apply()}}} operation. (2)
+
+Implement the {{{MSize(map)}}} operation, returning the size of a map. (1) *DONE*
+Implement the {{{LSize(list)}}} operation, returning the size of a list. (1) *DONE*
+
+Implement programmative support for varargs. (3) *DONE*
+
+Implement the {{{Modelize()}}} and {{{Concretize()}}} operations to complete the 
+renderization set. (2) *DONE*
+
+Implement the {{{Clone()}}} operation, able to clone any value. (5) *DONE*
+
+Complete the build system and rearrange the code modules. (2) *DONE*
+
+Updated gwt-profile to GWT 1.6. (1) *DONE* 
+
+Write the JRE command-line console. (10) *DONE*
+
+----
+
+== Ongoing Tasks ==
+
+Implement the {{{GraphValue}}} data type.
+  # implement the core type. (2) *DONE*
+  # implement the manipulation operations. (3) *DONE*
+  # implement the triple syntax. (3) *DONE*
+  # add graph search and transformation operators. (3)
+
+Implement the {{{Join()}}} operation among JSON models. (2)
+
+Add support for {{{JSON}}} storage and query. (4)
+
+Empower the JSON Model syntax. (3)
+
+Complete the _User Documentation_. (3)
+
+Complete the {{{XPath}}} support (some operators are missing).
+
+Complete the {{{JSONPath}}} support (some operators are missing).
+
+Add Regexp support for string manipulation. (2)
+
+TODOs reduction in code and documentation. (10)
+  # Improve error handing in Parser. An input string that doesn't match completely with a production must raise an exception. (4)
+  # Add specific exception of "not consumed stream" exception. (2)
+
+Add arithmetic expression support in language. (2)
+
+----
+
+_*---MILESTONE---*_
+
+----
+
+{{{JsonValue - JsonBase}}} hierarchy refactoring. (4)
+
+Rewrite MUp Console Shell with Gwt-Ext. (4)
+
+Introduce switch operator {{{ switch( C1() : P1, C2() : P2 ...); }}}.
+
+Integrate {{{XPath}}} and {{{JSONPath}}} syntaxes with {{{MU}}} syntax.
+  # integrate {{{JSONPath}}} accessors to variables and predicates like: {{{var.p1.p2.p3[i]}}}. (3)
+  # integrate {{{XPath}}} accessors to variables and predicates like: {{{var/p1/p2/p3}}}. (3)
+
+Introduce dynamic invocation operator {{{ v1(a1, a2, ...); }}}.
+
+Introduce support for explicit cast declaration in predicates: {{{P(v1:int, v2:string, ...) : ...}}}.
+
+Introduce the _Cast Manger_, that is an object allowing the definition of custom cast operations. (4)
+
+Refine processor code to support debugging: (4)
+  # Implement debugging support.
+  # Implement exception handling support.
+
+Add alternative support in processor. (4)
+
+Complete the _Developer Documentation_. (10)
+
+Add support to make assignment from flow control like {{{x = if/for(...)}}}. (2)
+
+Implement escape support at various levels: (3)
+  # jre commandline,
+  # lightparser,
+  # string manipulation operations. (jsonize, printf, ... ).
+
+Implement deactivation of tokenizer buffer. (2)

@@ -1,0 +1,175 @@
+To understand the _unification_ and the _predicate overloading_ it is needed to
+learn first the concepts behind *JSON Model*.
+
+===JSON Model===
+
+The JSON model extends the concept of JSON object by introducing variables.
+
+The *JSON Model* grammar is defined as an extension of the JSON specification at [http://www.json.org/].
+
+Basically the _JSONModel_ grammar adds the possibility of using 
+  _variables_ and 
+  _rest_ operators
+inside a JSON object. 
+The following example is a well formed _JSON Model_, where we have two value variables {{{a}}} and {{{b}}}
+and a rest variable {{{o}}}.
+
+{{{
+ { “k1” : a,  “k2”  : b | o} 
+}}}
+
+===Unification===
+
+The unification is the ability of a language to match 
+a data model with a data structure. A data model is a
+_JSON Model_, while a data structure is a _JSON_ object.
+
+In *MU* the data model is expressed with the _JSON model_ syntax.
+
+Given the previous example, {{{"k1"}}} and {{{"k2"}}} are constants and matches with constants 
+with the same name. The {{{a}}} and {{{b}}} are variables and matches with the values associated
+the related keys is the unified JSON data. The {{{o}}} variable is a rest variable that unifies 
+with the rest of the object not unifying with the first part, if any.
+
+Examples of unification (in an abstract formalism) are reported
+below. 
+The symbol {{{=::=}}} means _unifies with_ while the symbol {{{==>}}} 
+expresses the result of the unification.
+
+{{{
+# Basic unification #
+P1(a, b, c) =::= (List(1,2,3)) ==> P1(a:=1,b:=2,c:=3)
+}}}
+
+{{{
+# List unification. #
+P1([a,b|c]) =::= (List(1,2,3,4,5)) ==> P1(a:=1,b:=2,c:=[3,4,5])
+}}}
+
+{{{
+# Object unification. #
+P1( { “k1” : a,  “k2”  : b | o} ) =::= ({“k1” : 1 , “k2” : “2”, “k3” :  “3”}) ==> P1(a:=1,b:=”2”,c:={ “k3” : “3” })
+}}}
+
+===Overloading===
+Another key-aspect is provided by the support for predicate overloading.
+In fact with the _MU_ language it is possible to use the same predicate or 
+function name with different arguments, obtaining  different behavior. 
+The overloading is based on the _unification_ mechanism, this means that it 
+is possible to use _JSON Models_ as predicate arguments.
+
+An example of predicate overloading is listed in the code snap below:
+
+{{{
+Factorial(n) : Mult( n , Factorial( Minus(n,1) ) );
+Factorial(0) : 1;
+}}}
+
+As we can see at line 1 we use a variable argument for the {{{Factorial}}}
+predicate, while at line 2 we use a constant argument that will match only when
+the {{{Factorial}}} predicate will be invoked with actual argument equals to {{{0}}}.
+
+An more sophisticated example of predicate overloading is listed in the code example below:
+
+{{{
+OL([a,b,c]  , v) : Print('overload1');
+OL([a,b,c,d], v) : Print('overload2');
+OL({"k1" : v1, "k2" : v2}  , v) : Print('overload3');
+OL({"k1" : v1, "k2" : v2, "k3" : v3}  , v) : Print('overload4');
+}}}
+
+where we define four overloads of the same predicate {{{OL}}}. 
+Now we can discriminate among the different overloads by invoking {{{OL}}} with different argument structures.
+
+For example, the invocation of {{{OL}}} as:
+  * {{{OL(List(1,2,3) , 4);}}}  will  print {{{overload1}}}
+  * {{{OL(List(1,2,3,4), 5);}}} will  print  {{{overload2}}}
+  * {{{OL(Map('k1',1,'k2',2) , 4);}}} will  print  {{{overload3}}}
+  * {{{OL(Map('k1',1,'k2',2,'k3',3), 5);}}} will  print  {{{overload4}}}
+
+More _UI_ specific examples of predicate overloading involve the renderization processes,
+as described in section [Renderer].
+
+A short sample of renderization are:
+
+{{{
+# Change Background color. #
+ChangeBG( { “background” : bg | o } ) :  Add(o, Map(“background”, “red”) );
+}}}
+
+In this sample we define a {{{ChangeBG}}} (change background) predicate able to recognize any JSON
+object defining the {{{background}}} key. When then matching happens, the predicate simply 
+overrides the matched object property setting it to {{{red}}}.
+
+{{{
+# Change panel orientation if size exceed 10. #
+ChangePO( { o } ) :  if(  Gt( Size(o), 10 ) , Add(o, Map(“orientation”, “vertical”) ) );
+}}}
+
+In this sample we define a {{{ChangePO}}} (change panel orientation) predicate applicable on
+any JSON object. When an object is passed, the predicate checks that the object's size is greater
+than 10, is so the attribute {{{orientation: vertical}}} is added to the object.
+
+===Unification rules===
+
+This paragraph defines the unification rules of JSON data and models.
+
+The operation {{{=::=}}} means _unifies_.
+
+The operation {{{=!=}}} means doesn't _unify_.
+
+Basic unification rules are:
+
+||Model||Data||Result||
+||var||null||var =::= null||
+||var||true||var =::= true||
+||var||12||var =::= 12||
+||var||"foo"||var =::= "foo"||
+||"xxx"||"xxx"|| (UNIFIES)||
+||"xxx"||"yyy"||(DOESN'T UNIFY)||
+||var||[1,2,3]||var =:= [1,2,3]||
+||[a,b,c]||[1,2,3]||{ a =:= 1, b =:= 2, c=:= 3 }||
+||[a,b,c]||[1,2,3,4]||(DOESN'T UNIFY)||
+||[a,b,c|o]||[1,2,3,4]||{ a =:= 1, b =:= 2, c=:= 3, o =:= 4 }||
+||[a,b,c|o]||[1,2,3,4,5]||{ a =:= 1, b =:= 2, c=:= 3, o =:= [4,5] }||
+||{ "k1" : v1, "k2" : v2 }||{"k1" : "a1", "k2", "a2"}|| { v1 =::= "a1", v2 =::= "a2"}||
+||{ "k1" : v1, "k2" : v2 | o}||{"k1" : "a1", "k2", "a2", "k3" : "a3"}|| { v1 =::= "a1", v2 =::= "a2", o ::= {"k3" : "a3"} }||
+
+
+===JSONModel Syntax===
+
+{{{
+<un_root> ::= variable | const | number | <m_array> | <m_object> ;
+}}}
+
+{{{
+<m_array> ::= '[' <m_array_elements> '|' variable ']'
+               |
+              '[' <m_array_elements> ']' ;
+}}}
+
+{{{
+<m_object> ::= '{' <m_object_elements> '|' variable '}
+                |
+               '{' <m_object_elements> '}' ;
+}}}
+
+{{{
+<m_array_elements> ::= <m_element> [,] <m_array_elements>
+                       |
+                       <m_element> ;
+}}}
+
+{{{
+<m_object_elements> ::= <m_object_element> [,] <m_object_elements>
+                        |
+                        <m_object_element> ;
+}}}
+
+{{{
+<m_object_element> ::= key ':' <m_element> ;
+}}}
+
+{{{
+<m_element> ::= variable | const | number | <m_object> | <m_array> ;
+}}}

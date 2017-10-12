@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+
+<!-- 
+	***********************************************************
+	*   LightParser 0.9 [fox] - Build System.
+	*
+   	*	Main targets:
+	*
+ 	* help        : provides usage help
+	* dist        : distributes the library
+	* compile.gwt : to verify the compatibility with GWT.
+	* clean       : cleanup all the generated files
+	*
+	* authors: Michele Mostarda ( michele.mostarda@gmail.com )
+	* version: $Id: build.xml 410 2009-05-22 17:53:02Z michelemostarda $
+	*
+	***********************************************************
+-->
+
+<project 
+	default="help"
+	name="lightparser-0.9" 
+	basedir="."
+>
+
+  	<!-- =================================================================== -->
+  	<!-- Build properties                                                    -->
+  	<!-- =================================================================== -->
+  	<property name="name"    value="lightparser"/>
+  	<property name="Name"    value="LightParser"/>
+  	<property name="version" value="0.9"/>
+  	<property name="year"    value="2008"/>
+
+  	<property name="debug" value="on"/>
+
+  	<property name="src.dir"     value="${basedir}/src"/>
+	<property name="classes.dir" value="${basedir}/classes"/>
+  	<property name="javadoc.dir" value="${basedir}/javadoc"/>
+  	<property name="umldoc.dir"  value="${basedir}/uml"/>
+	<property name="war.dir"     value="${basedir}/war"/>
+	
+	<property name="gwt.module.dir" value="${basedir}/gwt_module/src"/>
+
+  	<property name="lib.dir"     value="${basedir}/../../lib"/>
+  	<property name="parent.dir"  value="${basedir}/../../"/>
+
+  	<property name="test.dir"         value="test"/>
+  	<property name="test.src.dir"     value="${test.dir}/src"/>
+  	<property name="test.reports.dir" value="${basedir}/reports"/>
+  
+  	<property name="dist.dir"     value="${basedir}/dist"/>
+
+	<property name="lightparser.jar.file" value="${name}-${version}.jar"/>
+	
+	<!-- Echoing properties. -->
+	<echoproperties>
+		<propertyset>
+	    	<propertyref regex=".*dir"/>
+		</propertyset>
+	</echoproperties>
+	  
+  	<!-- =================================================================== -->
+  	<!-- Classpaths.				                                         -->
+  	<!-- =================================================================== -->
+
+	<path id="jre.build.classpath">
+		<!-- Empty. -->
+  	</path>
+
+	<path id="gwt.native.classpath">
+		<pathelement path = "${gwt.module.dir}"/>
+  	</path>
+
+	<path id="gwt.build.classpath">
+		<path        refid = "gwt.native.classpath"/>
+		
+		<pathelement path = "${src.dir}"/>
+						
+		<pathelement path = "${lib.dir}/gwt/gwt-user.jar"/>
+		<pathelement path = "${lib.dir}/gwt/gwt-dev-mac.jar"/>
+		<pathelement path = "${lib.dir}/gwt/gwt-benchmark-viewer.jar"/>
+		<pathelement path = "${lib.dir}/gwt/gwt-servlet.jar"/>
+  	</path>
+
+  	<path id="test.build.classpath">
+	    <path        refid = "jre.build.classpath"/>
+		<pathelement path  = "${lib.dir}/junit.jar"/>
+    </path>
+
+    <path id="test.classpath">
+        <path        refid = "test.build.classpath"/>
+    </path>
+
+  <!-- =================================================================== -->
+  <!-- Targets.						                                       -->
+  <!-- =================================================================== -->
+	
+	<target
+			name        = "help"
+			description = "Shows the build help."
+	>
+      <echo>=======================================================================</echo>
+      <echo>${Name}</echo>
+      <echo>=======================================================================</echo>
+      <exec executable="${ant.home}/bin/ant" os="Linux, Solaris, SunOS, FreeBSD, Mac OS X, Mac OS">
+          <arg value="-projecthelp" />
+      </exec>
+      <exec executable="${ant.home}/bin/ant.bat" os="Windows NT, Windows 2000, Windows XP">
+          <arg value="-projecthelp" />
+      </exec>
+	  <echo/>
+      <echo>=======================================================================</echo>
+				
+	</target>
+		
+	<target
+		name        = "compile"
+		description = "compiles the library code."
+	>
+		<mkdir dir="${classes.dir}"/>
+		<javac
+			srcdir ="${src.dir}"
+			destdir="${classes.dir}"
+			debug="${debug}"
+		>
+			<classpath refid="jre.build.classpath"/>
+		</javac>
+	</target>
+	
+	<target
+		name = "compile.gwt"
+		description = "Compiles the module with the GWT compiler, allowing to test the compatibility" 
+	>
+	
+		<java
+	    	dir         = "${basedir}"
+	        classname   = "com.google.gwt.dev.Compiler"
+			fork        = "true"
+	        failonerror = "true"
+	        maxmemory   = "256M"
+	    >
+			<jvmarg value="-XstartOnFirstThread"/>
+	    	
+			<arg value="-logLevel"/>
+			<arg value="INFO"/>
+			<arg value="-style"/>
+			<arg value="DETAILED"/>
+			<arg value="-war"/>
+			<arg value="${war.dir}"/>
+			<arg value="com.asemantics.LightParser"/>
+
+	        <classpath refid="gwt.build.classpath"/>
+		</java>
+		
+	</target>
+
+    <target
+		name        = "compile.test"
+		depends     = "compile"
+	>
+		<mkdir dir="${classes.dir}"/>
+		<javac
+			srcdir ="${test.dir}"
+			destdir="${classes.dir}"
+			debug="${debug}"
+		>
+			<classpath refid="test.build.classpath"/>
+		</javac>
+	</target>
+
+    <target
+		name        = "dist"
+		depends     = "compile"
+	    description = "distributes the library."
+	>
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/${lightparser.jar.file}">
+			<fileset dir="${classes.dir}"/>
+		</jar>
+		
+		<echo>=======================================================================</echo>
+		<echo>	${Name} has been distributed under ${dist.dir}.					     </echo>
+		<echo>=======================================================================</echo>
+		
+	</target>
+	
+	<target
+		name        = "clean"
+		description = "Removes all generated files"
+	>
+		<delete dir="${classes.dir}"/>
+		<delete dir="${dist.dir}"/>
+		<delete dir="${test.reports.dir}"/>
+		<delete dir="${javadoc.dir}"/>
+		<delete dir="${umldoc.dir}"/>
+		<delete dir="${war.dir}"/>		
+    </target>
+	
+	<target
+		name        = "javadoc"
+		description = "Generates the Javadoc documentation"
+	>
+		<mkdir dir="${javadoc.dir}"/>
+		<javadoc 
+			destdir="${javadoc.dir}" 
+			author="true" 
+			version="true"
+            use="true" 
+			windowtitle="${Name} - Javadoc"
+			linksource="true"
+		>
+            <fileset dir="${src.dir}">
+				<include name="**/*.java"/>
+			</fileset>
+			<classpath refid = "gwt.build.classpath"/>
+            <doctitle><![CDATA[<h1>${Name} API</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2008 Michele Mostarda. All Rights Reserved.</i>]]></bottom>
+            <link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
+        </javadoc>
+	</target>
+	
+	<target 
+		name        = "uml" 
+		description = "Generates UML documentation."
+	>
+		<mkdir dir="${umldoc.dir}"/>
+		<javadoc 
+			sourcepath="${src.dir}" 
+			packagenames="com.asemantics.*" 
+			destdir="${umldoc.dir}" 
+	        private="true"
+		>
+	    	<doclet 
+				name="org.umlgraph.doclet.UmlGraphDoc" 
+				path="${lib.dir}/tools/UMLGraph.jar"
+			>
+	        	<param name="-inferrel"/>
+	            <param name="-inferdep"/>
+	            <param name="-hide" value="java.*"/>
+	            <param name="-collpackages" value="java.util.*"/>
+	            <param name="-qualify"/>
+	            <param name="-postfixpackage"/>
+	            <param name="-nodefontsize" value="9"/>
+	            <param name="-nodefontpackagesize" value="7"/>
+	            <param name="-link" value="http://java.sun.com/j2se/1.5.0/docs/guide/javadoc/doclet/spec"/>
+	            <param name="-link" value="http://java.sun.com/j2se/1.5/docs/api"/>
+			</doclet>
+			</javadoc>
+	</target>
+
+    <target
+		name        = "test"
+		description = "Runs the library test cases."
+		depends     = "compile.test"
+    >
+         <mkdir dir="${test.reports.dir}"/>
+         <junit
+                 printsummary="yes"
+                 haltonfailure="no"
+                 dir="."
+          >
+             <classpath>
+	 			<path        refid = "test.classpath"/>
+				<pathelement path  = "${classes.dir}"/>
+			 </classpath>
+
+             <formatter type="plain"/>
+
+             <batchtest
+                     fork="yes"
+                     todir="${test.reports.dir}"
+             >
+                 <fileset dir="${test.dir}">
+                     <include name="**/*Test.java"/>
+                 </fileset>
+             </batchtest>
+
+         </junit>
+    </target>
+
+	
+</project>

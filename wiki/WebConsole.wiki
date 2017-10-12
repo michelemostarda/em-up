@@ -1,0 +1,45 @@
+#labels Featured
+
+This section describes the MUp's _Web Console_ and related _Tools_.
+
+The Web Console is an interactive web based shell-like console.
+It is meant to help the user in developing and refining MU code.
+
+The console is based on GWT and gwt-ext widgets.
+The console supports a set of tool to inspect objects (as JSON structures)
+and the program context.
+
+==Console==
+
+The console is shown below:
+
+[http://em-up.googlecode.com/svn/wiki/images/mup-console.png]
+
+We can see mainly a command input area in the bottom side, and an execution 
+history on the central panel. The execution history shows a list of entries,
+every entry contains the executed program text, the result and an eventual
+error description. The command result shows a list of possible tools applicable
+on it to have a better editing.
+
+==Tools==
+
+===JSON Inspector===
+
+The _JSON Inspector_ is a tool useful to navigate and modify JSON objects.
+It is composed of an _editable tree view_ and an editable text view,
+double synchronized. Any modification in a view can be reported on the other
+view.
+
+[http://em-up.googlecode.com/svn/wiki/images/json-inspector.png]
+
+_JSON Inspector_
+
+===Context Inspector===
+
+The _Context Inspector_ helps a programmer in visualize the interpreter
+context, b showing the list of operations defined both by the framework and
+by the user.
+
+[http://em-up.googlecode.com/svn/wiki/images/context-inspector.png]
+
+_Context Inspector_

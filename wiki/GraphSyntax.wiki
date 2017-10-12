@@ -1,0 +1,43 @@
+
+This section describes the _graph syntax_ (shortly *GS*).
+
+The GS allows to define graphs in a compact way.
+
+{{{
+<graph> ::= '<' <list_of_triples> '>' ;
+}}}
+
+{{{
+<list_of_triples> ::= <triple> ';' <list_of_triples>
+                      |
+                      <triple> ;
+}}}
+
+{{{
+<triple> ::= <term>,  // from 
+			 <term>,  // arc
+			 <term> ; // to
+}}}
+
+Examples of usage of this syntax are:
+
+Basic graph:
+
+{{{
+Graph1() : <'a', 'b', 'c'; 'c', 'd', 'e'>;
+}}}
+
+[http://em-up.googlecode.com/svn/wiki/images/graph1-sample.png]
+
+Nested graph:
+
+{{{
+Graph2() : <'sub', 'pred', <'a', 'b', 'c'; 'c', 'd', 'e'>>;
+}}}
+
+[http://em-up.googlecode.com/svn/wiki/images/graph2-sample.png]
+
+Graph with label associated to the result of a predicate:
+{{{
+Graph3() : <'sub', Pred(aParam), 'obj'>;
+}}}

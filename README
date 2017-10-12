@@ -1,0 +1,10 @@
+
+=====
+ MUp
+=====
+
+lightparser		A grammar parser used by MU core module.
+core			The MUp core classes.
+jre-profile		MU profile running on standard Java Runtime Enviroment.
+gw-profile		MU profile able to be compile with GWT (1.6) in Javascript. 
+lib			MUp dependencies.

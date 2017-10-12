@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+XML comment...
+-->
+
+<rss version="2.0">
+    <channel>
+        <title>news-site.it &gt; Rubriche</title>
+        <link>http://www.news-site.it/indici/rubriche/rubriche.htm</link>
+        <description>news-site.it: gli ultimi articoli della sezione Rubriche</description>
+
+        <copyright>Copyright 2008 - Gruppo Editoriale di Test</copyright>
+        <language>it-IT</language>
+        <managingEditor>repubblicawww@news-site.it (per segnalazioni sui contenuti del servizio)</managingEditor>
+        <webMaster>problemi@news-site.it (per segnalazione di malfunzionamenti del servizio)</webMaster>
+        <lastBuildDate>Tue, 07 Oct 2008 15:20:40 GMT</lastBuildDate>
+        <category domain="http://www.news-site.it">rubriche</category>
+
+        <generator>Atex Presweb Builder 4.3</generator>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <ttl>180</ttl>
+        <image>
+            <url>http://www.news-site.it/images/logo_sito.gif</url>
+            <title>news-site.it</title>
+
+            <link>http://www.news-site.it/indici/rubriche/rubriche.htm</link>
+            <width>134</width>
+            <height>19</height>
+        </image>
+
+
+        <item>
+            <enclosure
+                    url="http://www.news-site.it/2008/06/rubriche/azzurro-quotidiano/perrotta-taxi/afp_13234903_27350.jpg"
+                    length="18973"
+                    type="image/jpeg"/>
+            <link>http://www.news-site.it/2008/06/rubriche/azzurro-quotidiano/pagina/pagina-link.html?rss
+            </link>
+
+            <guid isPermaLink="true">
+                http://www.news-site.it/2008/06/rubriche/azzurro-quotidiano/pagina/pagina-link.html?rss
+            </guid>
+
+
+            <title><![CDATA[Spy Calcio >  L'ombra di Lippi... Fino a quando?]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Spy Calcio -  L'ombra di Lippi... Fino a quando?</b>
+                                            <br>
+
+                                            <br><br>
+                                            (19:28 19/06/2008)
+                                              ]]></description>
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Fri, 20 Jun 2008 11:01:16 GMT</pubDate>
+
+        </item>
+
+
+        <item>
+            <enclosure
+                    url="http://www.news-site.it/2007/02/rubriche/bussole/democrazia-inutile/stor_14034203_44080.jpg"
+                    length="20208"
+                    type="image/jpeg"/>
+            <link>http://www.news-site.it/2007/02/rubriche/bussole/democrazia-inutile/democrazia-inutile.html?rss
+            </link>
+            <guid isPermaLink="true">
+                http://www.news-site.it/2007/02/rubriche/bussole/democrazia-inutile/democrazia-inutile.html?rss
+            </guid>
+
+
+            <title><![CDATA[Spy Calcio >  Se la democrazia diventa inutile]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Spy Calcio -  Se la democrazia diventa inutile</b>
+                                            <br>
+
+                                            <br><br>
+                                            (21:44 01/10/2008)
+                                              ]]></description>
+
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Wed, 01 Oct 2008 19:50:07 GMT</pubDate>
+        </item>
+
+
+        <item>
+            <link>http://www.news-site.it/2003/k/rubriche/cartacanta/6-ott/6-ott.html?rss</link>
+            <guid isPermaLink="true">http://www.news-site.it/2003/k/rubriche/cartacanta/6-ott/6-ott.html?rss</guid>
+
+
+            <title><![CDATA[Carta Canta >  Tutta invidia]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Carta Canta -  Tutta invidia</b>
+                                            <br>
+
+                                            <br><br>
+                                            (10:34 06/10/2008)
+                                              ]]></description>
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Mon, 06 Oct 2008 08:34:56 GMT</pubDate>
+        </item>
+
+
+        <item>
+
+            <link>http://www.news-site.it/2008/06/rubriche/euro-in-testa/saluti-vittorio/saluti-vittorio.html?rss
+            </link>
+            <guid isPermaLink="true">
+                http://www.news-site.it/2008/06/rubriche/euro-in-testa/saluti-vittorio/saluti-vittorio.html?rss
+            </guid>
+
+
+            <title><![CDATA[Carta Canta >  Addio occhiali azzurri]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Carta Canta -  Addio occhiali azzurri</b>
+                                            <br>
+
+                                            <br><br>
+                                            (10:58 24/06/2008)
+                                              ]]></description>
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Tue, 24 Jun 2008 08:59:21 GMT</pubDate>
+        </item>
+
+
+        <item>
+            <link>http://www.news-site.it/2005/b/rubriche/glialtrinoi/germi-odio/germi-odio.html?rss</link>
+            <guid isPermaLink="true">http://www.news-site.it/2005/b/rubriche/glialtrinoi/germi-odio/germi-odio.html?rss
+            </guid>
+
+
+            <title><![CDATA[Gli altri noi >  La vita quotidiana e i germi dell'odio]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Gli altri noi -  La vita quotidiana e i germi dell'odio</b>
+                                            <br>
+
+                                            <br><br>
+                                            (11:47 20/07/2008)
+                                              ]]></description>
+
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Sun, 20 Jul 2008 09:48:10 GMT</pubDate>
+        </item>
+
+
+        <item>
+            <link>http://www.news-site.it/2003/g/rubriche/lessicoenuvole/05-ott/05-ott.html?rss</link>
+            <guid isPermaLink="true">http://www.news-site.it/2003/g/rubriche/lessicoenuvole/05-ott/05-ott.html?rss
+            </guid>
+
+
+            <title><![CDATA[Lessico e nuvole >  Complicando il lipogramma]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Lessico e nuvole -  Complicando il lipogramma</b>
+                                            <br>
+
+                                            <br><br>
+                                            (00:00 06/10/2008)
+                                              ]]></description>
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Sun, 05 Oct 2008 22:00:00 GMT</pubDate>
+        </item>
+
+
+        <item>
+
+            <link>http://www.news-site.it/2005/b/rubriche/letterealdirettore/fischia-sesso/fischia-sesso.html?rss
+            </link>
+            <guid isPermaLink="true">
+                http://www.news-site.it/2005/b/rubriche/letterealdirettore/fischia-sesso/fischia-sesso.html?rss
+            </guid>
+
+
+            <title><![CDATA[Lettere al direttore >  Banchiere nostro, che sei nei guai]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Lettere al direttore -  Banchiere nostro, che sei nei guai</b>
+                                            <br>
+
+                                            <br><br>
+                                            (12:50 07/10/2008)
+                                              ]]></description>
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Tue, 07 Oct 2008 10:51:19 GMT</pubDate>
+        </item>
+
+
+        <item>
+            <link>http://www.news-site.it/2003/g/rubriche/naviinbottiglia/valigia/valigia.html?rss</link>
+            <guid isPermaLink="true">http://www.news-site.it/2003/g/rubriche/naviinbottiglia/valigia/valigia.html?rss
+            </guid>
+
+
+            <title><![CDATA[Navi in bottiglia >  La valigia che non c'è]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Navi in bottiglia -  La valigia che non c'è</b>
+                                            <br>
+
+                                            <br><br>
+                                            (00:00 06/10/2008)
+                                              ]]></description>
+
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Sun, 05 Oct 2008 22:00:00 GMT</pubDate>
+        </item>
+
+
+        <item>
+            <link>http://www.news-site.it/2008/06/rubriche/piazza-asiatica/masette/masette.html?rss</link>
+            <guid isPermaLink="true">http://www.news-site.it/2008/06/rubriche/piazza-asiatica/masette/masette.html?rss
+            </guid>
+
+
+            <title><![CDATA[Navi in bottiglia >  Una speranza dall'Australia]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Navi in bottiglia -  Una speranza dall'Australia</b>
+                                            <br>
+
+                                            <br><br>
+                                            (10:36 07/10/2008)
+                                              ]]></description>
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Tue, 07 Oct 2008 08:36:57 GMT</pubDate>
+        </item>
+
+
+        <item>
+
+            <link>http://www.news-site.it/2006/a/rubriche/piccolaitalia/bandi-brunetta/bandi-brunetta.html?rss</link>
+            <guid isPermaLink="true">
+                http://www.news-site.it/2006/a/rubriche/piccolaitalia/bandi-brunetta/bandi-brunetta.html?rss
+            </guid>
+
+
+            <title><![CDATA[Navi in bottiglia >  AAA, cercasi super senior ]]></title>
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Navi in bottiglia -  AAA, cercasi super senior </b>
+                                            <br>
+
+                                            <br><br>
+                                            (08:38 29/09/2008)
+                                              ]]></description>
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Mon, 29 Sep 2008 06:38:52 GMT</pubDate>
+        </item>
+
+
+        <item>
+            <enclosure
+                    url="http://www.news-site.it/2003/h/rubriche/spycalcio/osservatorio-catanesi/stor_14069557_33530.jpg"
+                    length="30636"
+                    type="image/jpeg"/>
+            <link>
+                http://www.news-site.it/2003/h/rubriche/spycalcio/osservatorio-catanesi/osservatorio-catanesi.html?rss
+            </link>
+            <guid isPermaLink="true">
+                http://www.news-site.it/2003/h/rubriche/spycalcio/osservatorio-catanesi/osservatorio-catanesi.html?rss
+            </guid>
+
+
+            <title>
+                <![CDATA[Spy Calcio >  Viminale: niente juventini a Napoli Stop trasferte anche per catanesi?]]></title>
+
+            <description><![CDATA[
+                                            <i></i>
+                                            <b>Spy Calcio -  Viminale: niente juventini a Napoli Stop trasferte anche per catanesi?</b>
+                                            <br>
+
+                                            <br><br>
+                                            (20:35 06/10/2008)
+                                              ]]></description>
+            <author>repubblicawww@news-site.it</author>
+            <category domain="http://www.news-site.it">rubriche</category>
+
+
+            <pubDate>Mon, 06 Oct 2008 18:35:57 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

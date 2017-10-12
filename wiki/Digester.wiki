@@ -1,0 +1,12 @@
+==This section explains the _Digester_ module.==
+
+The _Digester_ module provides a set of _inspection_ predicates
+used by _MU_ to decompose XML / SGML data retrieved from Web.
+
+THe Digester supports a subset of the _XPath_ language, meant to perform forward
+selection. The forward selection is a selection that can be done in streaming, with
+no backtracking required.
+
+This language subset is called *XP*.
+
+The full digester _XP_ specification and samples can be found [XPSyntax here].

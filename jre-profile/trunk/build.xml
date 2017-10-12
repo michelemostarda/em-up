@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+
+<!-- 
+	***********************************************************
+	*   em-up 0.7 [Raiser] - Build System.
+	*
+   	*	Main targets:
+	*
+ 	* help        : provides usage help.
+	* dist        : distributes the library.
+	* clean       : cleanup all the generated files.
+	* compile     : compiles the library code.
+    * dist        : distributes the library.
+    * help        : shows the build help.
+    * javadoc     : generates the Javadoc documentation.
+    * test        : runs the library test cases.
+    * uml         : generates the UML documentation.
+	*
+	* authors: Michele Mostarda ( michele.mostarda@gmail.com )
+	* version: $Id: build.xml 410 2009-05-22 17:53:02Z michelemostarda $
+	*
+	***********************************************************
+-->
+
+<project 
+	default="help"
+	name="jre-profile" 
+	basedir="."
+>
+
+  	<!-- =================================================================== -->
+  	<!-- Build properties                                                    -->
+  	<!-- =================================================================== -->
+  	<property name="name"    value="mup-jre-profile"/>
+  	<property name="Name"    value="Em Up JRE Profile"/>
+  	<property name="version" value="0.7"/>
+  	<property name="year"    value="2009"/>
+
+  	<property name="debug" value="on"/>
+
+  	<property name="src.dir"     value="${basedir}/src"/>
+	<property name="classes.dir" value="${basedir}/classes"/>
+  	<property name="javadoc.dir" value="${basedir}/javadoc"/>
+  	<property name="umldoc.dir"  value="${basedir}/uml"/>
+	
+	<property name="lightparser.dir"   value="${basedir}/../../lightparser/trunk"/>
+	
+    <property name="core.src.dir" value="${basedir}/../../core/trunk/src"/>
+
+	<property name="lib.dir"     value="${basedir}/../../lib"/>
+  	<property name="parent.dir"  value="${basedir}/../../"/>
+
+  	<property name="test.dir"         value="test"/>
+  	<property name="test.src.dir"     value="${test.dir}/src"/>
+  	<property name="test.reports.dir" value="${basedir}/reports"/>
+  
+  	<property name="dist.dir"     value="${basedir}/dist"/>
+
+	<property name="mashup.jar.file" value="${name}-${version}.jar"/>
+	
+	<!-- Echoing properties. -->
+	<echoproperties>
+		<propertyset>
+	    	<propertyref regex=".*dir"/>
+		</propertyset>
+	</echoproperties>
+	  
+  	<!-- =================================================================== -->
+  	<!-- Classpaths.				                                         -->
+  	<!-- =================================================================== -->
+
+	<path id="http.commons.classpath">
+		<fileset dir = "${lib.dir}/">
+			<include name="commons-codec-1.3.jar"/>
+			<include name="commons-logging-1.1.1.jar"/>
+			<include name="commons-httpclient-3.1.jar"/>
+		</fileset>
+  	</path>
+
+	<path id="jsontools.classpath">
+		<fileset dir = "${lib.dir}/">
+			<include name="antlr-2.7.7.jar"/>
+			<include name="antlr-3.0.1-runtime.jar"/>
+			<include name="jsontools-core-1.5.jar"/>
+		</fileset>
+  	</path>
+
+	<path id="jline.classpath">
+		<fileset dir = "${lib.dir}/">
+			<include name="jline-0.9.94.jar"/>
+		</fileset>
+  	</path>
+
+	<path id="jre.build.classpath">
+		<fileset dir = "${lightparser.dir}/dist">
+			<include name="*.jar"/>
+		</fileset>
+		<path refid = "http.commons.classpath"/>
+		<path refid = "jsontools.classpath"/>
+		<path refid = "jline.classpath"/>
+  	</path>
+     
+    <path id="compile.classpath"> 
+		<pathelement path = "${core.src.dir}"/>
+		<pathelement path = "${src.dir}"/>
+		<path refid="jre.build.classpath"/>
+	</path>
+
+  	<path id="test.build.classpath">
+	    <path        refid = "jre.build.classpath"/>
+		<pathelement path  = "${lib.dir}/junit.jar"/>
+    </path>
+
+    <path id="test.classpath">
+        <path refid = "test.build.classpath"/>
+		<pathelement path = "${test.dir}"/>
+    </path>
+
+  <!-- =================================================================== -->
+  <!-- Targets.						                                       -->
+  <!-- =================================================================== -->
+	
+	<target
+			name        = "help"
+			description = "Shows the build help."
+	>
+      <echo>=======================================================================</echo>
+      <echo>${Name}</echo>
+      <echo>=======================================================================</echo>
+      <exec executable="${ant.home}/bin/ant" os="Linux, Solaris, SunOS, FreeBSD, Mac OS X, Mac OS">
+          <arg value="-projecthelp" />
+      </exec>
+      <exec executable="${ant.home}/bin/ant.bat" os="Windows NT, Windows 2000, Windows XP">
+          <arg value="-projecthelp" />
+      </exec>
+	  <echo/>
+      <echo>=======================================================================</echo>
+				
+	</target>
+		
+	<target
+		name        = "compile"
+		description = "compiles the library code."
+	>
+		<mkdir dir="${classes.dir}"/>
+		<javac
+			destdir="${classes.dir}"
+			debug="${debug}"
+		>
+		   <src path="${core.src.dir}"/>
+	 	   <src path="${src.dir}"/>
+		   <classpath refid="jre.build.classpath"/>
+		</javac>
+	</target>
+	
+    <target
+		name        = "compile.test"
+		depends     = "compile"
+	>
+		<mkdir dir="${classes.dir}"/>
+		<javac
+			srcdir ="${test.dir}"
+			destdir="${classes.dir}"
+			debug="${debug}"
+		>
+			<classpath refid="test.build.classpath"/>
+		</javac>
+	</target>
+	
+	<!-- 
+		NOTE: is not possible to launch the console inside Ant because despite the commands can be executed
+	          the prompt is not visible.
+	-->
+	<!--
+	<target
+		name        = "console"
+		depends     = "dist"
+		description = "Run the MU commandline console"
+	>
+    	<java 
+			classname="com.asemantics.mashup.console.MUCommandLine"
+			fork="true"
+			spawn="false"
+           maxmemory="128m"
+		>
+ 			<classpath>
+				<path refid="jre.build.classpath"/>
+				<pathelement path="${classes.dir}"/>
+			</classpath>	
+    	</java>
+	</target>	
+	-->
+
+    <target
+		name        = "dist"
+		depends     = "compile"
+	    description = "distributes the library."
+	>
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/${mashup.jar.file}">
+			<fileset dir="${classes.dir}"/>
+		</jar>
+		
+		<echo>=======================================================================</echo>
+		<echo>	${Name} has been distributed under ${dist.dir}.					     </echo>
+		<echo>=======================================================================</echo>
+		
+	</target>
+	
+	<target
+		name        = "clean"
+		description = "Removes all generated files"
+	>
+		<delete dir="${classes.dir}"/>
+		<delete dir="${dist.dir}"/>
+		<delete dir="${test.reports.dir}"/>
+		<delete dir="${javadoc.dir}"/>
+		<delete dir="${umldoc.dir}"/>		
+    </target>
+	
+	<target
+		name        = "javadoc"
+		description = "Generates the Javadoc documentation"
+	>
+		<mkdir dir="${javadoc.dir}"/>
+		<javadoc 
+			sourcepathref="compile.classpath"
+			destdir="${javadoc.dir}" 
+			author="true" 
+			version="true"
+            use="true" 
+			windowtitle="${Name} - Javadoc"
+			linksource="true"
+		>
+  		    <classpath refid="compile.classpath"/>
+            <doctitle><![CDATA[<h1>${Name} API</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2008 Michele Mostarda. All Rights Reserved.</i>]]></bottom>
+            <link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
+        </javadoc>
+	</target>
+	
+	<target 
+		name        = "uml" 
+		description = "Generates UML documentation."
+	>
+		<mkdir dir="${umldoc.dir}"/>
+		<javadoc 
+			sourcepathref="compile.classpath"
+			packagenames="com.asemantics.*" 
+			destdir="${umldoc.dir}" 
+	        private="true"
+		>
+			<classpath refid="compile.classpath"/>
+	    	<doclet 
+				name="org.umlgraph.doclet.UmlGraphDoc" 
+				path="${lib.dir}/tools/UMLGraph.jar"
+			>
+	        	<param name="-inferrel"/>
+	            <param name="-inferdep"/>
+	            <param name="-hide" value="java.*"/>
+	            <param name="-collpackages" value="java.util.*"/>
+	            <param name="-qualify"/>
+	            <param name="-postfixpackage"/>
+	            <param name="-nodefontsize" value="9"/>
+	            <param name="-nodefontpackagesize" value="7"/>
+	            <param name="-link" value="http://java.sun.com/j2se/1.5.0/docs/guide/javadoc/doclet/spec"/>
+	            <param name="-link" value="http://java.sun.com/j2se/1.5/docs/api"/>
+			</doclet>
+			</javadoc>
+	</target>
+
+    <target
+		name        = "test"
+		description = "Runs the library test cases."
+		depends     = "compile.test"
+    >
+         <mkdir dir="${test.reports.dir}"/>
+         <junit
+                 printsummary="yes"
+                 haltonfailure="no"
+                 dir="."
+          >
+             <classpath>
+	 			<path        refid = "test.classpath"/>
+				<pathelement path  = "${classes.dir}"/>
+			 </classpath>
+
+             <formatter type="plain"/>
+
+             <batchtest
+                     fork="yes"
+                     todir="${test.reports.dir}"
+             >
+                 <fileset dir="${test.dir}">
+                     <include name="**/*Test.java"/>
+ 				     <exclude name="**/*Abstract*"/>
+                 </fileset>
+             </batchtest>
+
+         </junit>
+    </target>
+	
+</project>

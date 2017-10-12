@@ -1,0 +1,480 @@
+#labels Featured
+== What's MUp ==
+
+[http://em-up.googlecode.com/svn/wiki/images/under-development-small.png]
+
+MUp defines two runtime profiles : Java Runtime Environment (JRE) and Google Web Toolkit (GWT).
+so that it can be run both as a *Java* and as *Javascript* application.
+
+MUp is compiled in Javascript with GWT.
+The Javascript profile is able to run entirely client side.
+MUp can be used client side to define Javascript widgets embedded in Web pages.
+
+== How it works ==
+
+MUp provides a special language to perform data mashing, this language is called *MU*.
+MU provides several predicates to perform mashup,that can be grouped in functional sets.
+
+[http://em-up.googlecode.com/svn/wiki/images/mu-operation-sets.png]
+
+This section describes every set in detail.
+
+In the following list will be used a notation like:
+{{{
+<ReturnType> PredicateName( <CastType1> arg1, ... ,<CastTypeN> argN )
+}}}
+that means: the predicate {{{PredicateName}}} takes {{{N}}} arguments where the {{{i-th}}} argument with name {{{arg-i}}} 
+will be casted internally as a {{{CastType-i}}} type; finally the predicate will return a value of type {{{ReturnType}}}.
+
+The entities bounded as {{{<<entity>>}}} are meta types, and are used to define _predicate references_ and _variables_.
+
+*Evalutation operations*: allow to evaluate an expression in the interpreter.
+
+||Operation||Meaning||
+||{{{<Value> Evaluate(<String> command)}}}||Evaluates a given string _command_ as a program in the interpreter.|| 
+
+*Output operations:* allow to perform system out operations.
+
+||Operation||Meaning||
+||{{{Print(<String>...)}}}||Prints all the argument strings on the system out.|| 
+
+*Context operations*: allow to manage programming context.
+
+||Operation||Meaning||
+||{{{<String> Context(<String> ...)}}}||If no argumnets are provided, lists out all predicates defined in context with a short description, otherwise only the specified predicates.||
+||{{{<String> PContext()}}}||Lists out all predicates defined at runtime by user interaction.||
+||{{{<String> StackTrace()}}}||Stack trace utility function.||
+
+*Unification operations*: allow to handle unification.
+
+||Operation||Meaning||
+||{{{<Map> Unify(<JSONModel> model,<JSON> json)}}}||Unifies the _json_ data with the JSON _model_. The result is a map which keys are the variables defined in the {{{JSONModel}}} and the values are the unified {{{JSON}}} data.||
+||{{{<List> Apply(<String> predicateName,<JSON> argument)}}}||Navigates the _argument_ data and for every sub part invokes the predicate with _predicateName_ with the sub part as argument.||
+
+*Model Operations*: allow to create JSON models from data.
+||Operation||Meaning||
+||{{{<JSON> Jsonize(<String> model, <List> parameters)}}}||This predicate provides expansion of JSON _model_ espressed as string with a list of _parameters_.||
+||{{{<Map> Unify(<JSON> data, <JSONModel> model)}}}||This predicate provides unification between a JSON _data_ structure and a JSON _model_.||
+||{{{<List> Apply(<String>, <JSONModel>)}}}||This predicate visits recursively the JSON argument and invokes the predicate with name for each element found.||
+
+*Conditional Operations.*
+
+||Operation||Meaning||
+||{{{<Boolean> Eq(<Numeric> n1,<Numeric> n2)}}}||{{{n1 == n2}}}||
+||{{{<Boolean> NEq(<Numeric> n1, <Numeric> n2)}}}||{{{n1 != n2}}}||
+||{{{<Boolean> Lt(n1<Numeric>,n2<Numeric>)}}}||{{{n1 < n2}}}||
+||{{{<Boolean> Gt(<Numeric> n1, <Numeric> n2)}}}||{{{n1 > n2}}}||
+||{{{<Boolean> Lte(<Numeric> n1, <Numeric> n2)}}}||{{{n1 <= n2}}}||
+||{{{<Boolean> Gte(<Numeric> n1, <Numeric> n2)}}}||{{{n1 >= n2}}}||
+
+*Logical Operations.*
+
+||Operation||Meaning||
+||{{{<Boolean> And(<Boolean> b1, <Boolean> b2)}}}||{{{b1 AND b2}}}||
+||{{{<Boolean> Or(<Boolean> b1, <Boolean> b2)}}}||{{{b1 OR b2}}}||
+||{{{<Boolean> Xor(<Boolean> b1, <Boolean> b2)}}}||{{{b1 XOR b2}}}||
+||{{{<Boolean> Not(<Boolean> b)}}}||NOT b||
+
+*Math Operations.*
+
+||Operation||Meaning||
+||{{{<Nnumeric> Sum(<Numeric> a1, <Numeric> a2)}}}||{{{a1 + a2}}}||
+||{{{<Nnumeric> Diff(<Numeric> d1, <Numeric> d2)}}}||{{{d1 - d2}}}||
+||{{{<Nnumeric> Mult(<Numeric> m1, <Numeric> m2)}}}||{{{m1 * m2}}}||
+||{{{<Nnumeric> Div(<Numeric> d1,c<Numeric> d2)}}}||{{{d1 \ d2}}}||
+||{{{<Nnumeric> Mod(<Numeric> m1, <Numeric> m2)}}}||{{{m1 % m2}}}||
+||{{{<Nnumeric> IsInfinite(<Numeric> n)}}}||Returns _true_ if given numeric is infinite, _false_ otherwise.||
+||{{{<Nnumeric> IsNan(<Numeric> n)}}}||Returns _true_ if given numeric is _not a number_, _false_ otherwise.||
+
+*Data operations*: allow to handle data structures.
+
+_List operations_
+
+||Operation||Meaning||
+||{{{<List> List(<Value> val...)}}}||Creates a new list, if _val_ are specified the list is populated with them.||
+||{{{<List> {AddElem(<List>list,<Value> value)}}}||Enqueues the element _value_ to _list_.||
+||{{{<List> AddFirst(<List>list,<Value> value)}}}||Adds the element _value_ to _list_ at first position.||
+||{{{<List> AddLast(<List>list,<Value> value)}}}||Adds the element _value_ to _list_ at last position.||
+||{{{<Value> GetElem(<List>list, <Numeric>index)}}}||Returns the _index-th_ element of _list_.||
+||{{{<Numeric> LIndexOf(<List>list, <Value>value)}}}||Returns the first index in which _value_ is found in _list_, _-1_ otherwise.||
+||{{{<List> LRemove(<List>list, <Numeric>index)}}}||Removes the _index-th_ element from _list_.||
+||{{{<Numeric> LSize(<List>list)}}}||Returns the size of the list.||
+
+_Range operations_
+
+||Operation||Meaning||
+||{{{<List> Range(<Numeric> begin, <Numeric> end, [<Numeric> step])}}}||Defines a list of numeric elements from _begin_ value to _end_ value moving of _step_ value.||
+
+_Map operations_
+
+||Operation||Meaning||
+||{{{<Map> Map(<Value> values...)}}}||Creates a new map, if _values_ are specified, the map is initialized with them, with the convention: _k1, v1, k2, v2, ..._ .||
+||{{{<Map> MPut(map,key,value)}}}||Puts a _key_-_value_ pair in _map_.||
+||{{{<Value> MGet(map,key)}}}||Gets the value associated to _key_ in _map_.||
+||{{{<Map> MRemove(map,key)}}}||Removes the pair with key _key_ from _map_.||
+||{{{<Numeric> MSize(map)}}}||Returns the size of the map.||
+
+_Graph operation_
+||Operation||Meaning||
+||{{{<Graph> Graph()}}}||Creates a new empty graph.||
+||{{{<Graph> GAddNode(<Graph> graph, <Value> value)}}}||Adds _value_ as node of _graph_.||  
+||{{{<Graph> GRemoveNode(<Graph> graph, <Value> value)}}}||Removes _value_ as node from _graph_.||
+||{{{<Graph> GAddArc(<Graph> graph, <Value> from, <Value> label, <Value> to)}}}||Adds the triple {{{<from,label,to}}} to the graph.||
+||{{{<Graph> {GRemoveArc(<Graph> graph, <Value> from, <Value> label, <Value> to)}}}||Removes the triple {{{<from,label,to}}} from the graph.||
+
+*String operations:*
+
+||Operation||Meaning||
+||{{{<String> SubString(<String> in, <Numeric> begin, <Numeric> end)}}}|| Extracts from _in_ the sub string from _begin_ to _end_.||
+||{{{<Numeric> SIndexOf(<String> in, <Numeric> pattern)}}}|| Returns the first location of _pattern_ in _in_ string.||
+
+*Type operations:*
+
+||Operation||Meaning||
+||{{{<String> Type(<Any>)}}}||Returns type of given value.||
+||{{{<Boolean> AsBoolean(<Any>)}}}||Casts the given value as Boolean.||
+||{{{<Numeric> AsNumeric(<Any>)}}}||Casts the given value as Numeric.||
+||{{{<String> AsString(<Any>)}}}||Casts the given value as String.||
+||{{{<List> AsList(<Any>)}}}||Casts the given value as List.||
+||{{{<Map> AsMap(<Any>)}}}||Casts the given value as Map.||
+||{{{<JSON> AsJSON(<Any>)}}}||Casts the given value as JSON.||
+
+*Source Operations*:  allow to retrieve web resources.
+
+||Operation||Meaning||
+||{{{<String> Get(<String> url, <List> params)}}}||Performs an HTTP GET over the given _url_, by replying _params_ first if present in the _url_.||
+||{{{<String> Post(<String> url, <List> params)}}}||Performs an HTTP POST over the given _url_, by replying _params_ first if present in the _url_.||
+||{{{<String> PGet(<String> url, <List> params)}}}||As Get(), but uses a server proxy to avoid SOP^1^ restriction.||
+||{{{<String> PPost(<String> url, <List> params)}}}||As Post(), but uses a server proxy to avoid SOP^1^ restriction.||
+
+(1) _SOP_ : Same Origin Policy. See [http://en.wikipedia.org/wiki/Same_origin_policy definition].
+
+*Inspect Operations*: allow to decompose data retrieved from Web.
+
+||Operation||Meaning||
+||{{{<String> Content(<String> in)}}}||Inspects the _in_ stream and returns its content: *JSON* ,  *XML* , *HTML* or *UNKNOWN*.||
+||{{{<String> XPath(<String> path,<String> stream)}}}||Performs an {{{XPath}}} like operation over an XML _stream_. See [Digester].||
+||{{{<JSON> JPath(<JSON> data,<String> path)}}}||Performs a {{{JSONPath}}} like operation over a JSON _data_. See [JSONPath].||
+
+*JSON Operations*: allow to create JSON object from templates.
+
+||Operation||Meaning||
+||{{{<String> Jsonize(<String> template, <List> params)}}}||Expands the given JSON _template_ with the list of _params_. See [JSONOperations JSON Operations].||
+
+*Renderization Operations*: allow to renderize JSON models.
+
+||Operation||Meaning||
+||{{{<JSON> Renderize(<JSON> data)}}}||Transforms a JSON _data_ in a native UI model.||
+||{{{<JSON> Modelize(<JSON> data)}}}||Transforms a JSON _data_ in a JSON UI model.||
+||{{{<JSON> Concretize(<JSON> _model_)}}}||Transforms a JSON UI _model_ in a native UI model.||
+
+*Flow Controls.*
+
+All the flow control predicates start with lower case, this differentiate a flow control predicate,
+from a normal predicate. In a normal predicate like this 
+{{{
+APred( Nested1(), Nested2() )
+}}}
+the nested predicates (predicates passed as arguments of a predicate) are always evaluated in the order
+of the invocation (in this case {{{Nested1}}} and then {{{Nested2}}}). In a flow control predicate,
+the nested predicates are not invoked by default but by following the specific control logic.
+
+||Control||Meaning||
+||{{{<Value> if(<Condition> condition, <<Predicate>> ifPredicate, [<<Predicate>> elsePredicate])}}}|| {{{if}}} flow control. If the value returned from the {{{Condition}}} predicate (casted to {{{Boolean}}}) evaluates to {{{true}}} then the predicate {{{IfPredicate}}} is evaluated, otherwise the {{{ElsePredicate}}} is evaluated. The {{{if}}} predicate returns the result of the evaluated branch predicate.||
+||{{{<List> for(<List> items, <iterable_var> variable , <Predicate> target)}}}|| {{{for}}} flow control. The {{{for}}} flow control iterates over all the elements of list {{{items}}}, valorizing the variable _var_ with the current element, and invoking the _target_ predicate that in its own actual parameters should contain _var_. All the results of the invocation of _target_ for the different elements are collected in the order of execution and returned at the end of the iteration.||
+
+== MU Language ==
+
+MU is based on an hybrid programming paradigm based on functional, 
+procedural and logic constructs.
+
+MU is based on predicate _declarations_ and predicate _invocations_.
+
+A predicate name starts always with _upper case_.
+A variable name starts always with _lower case_.
+
+A _predicate declaration_ has the following form:
+
+{{{
+PredicateName( param1, param2, ... ) : PredicateCall1(), PredicateCall2() ...;
+}}}
+
+Notice that predicate name is followed by a list of parameters and by a {{{:}}}.
+The part on the left of {{{:}}} is called _predicate head_.
+The part on the right of {{{:}}} is called _predicate body_.
+
+A _predicate invocation_ has the following form:
+
+{{{
+PredicateCall1(p11, ...), PredicateCall2(p21, ...) ... PredicateCallN(pN1, ...);
+}}}
+
+This invocation will invoke first the predicate with name {{{PredicateCall1}}} then the predicate with name {{{PredicateCall2}}}
+then the subsequents until {{{PredicateCallN}}} with the given parameters. 
+The invocation will return the value returned by the last invoked predicate ({{{PredicateCallN}}}).
+
+Predicate declarations and invocations always end with {{{;}}}.
+
+MU Predicates are like functions, in fact they return the last value processed in their
+predicate body.
+
+Predicate invocations and declarations can use procedural and logical constructs.
+
+An example of procedural expression is:
+
+{{{
+$Procedure(a,b) : r1=PredA(a), r2=PredB(b), if( Gt(r1,r2), PredC(r1), PredD(r2) );
+}}}
+
+That declares a predicate with name {{{Procedure}}} that first computes {{{r1}}} as result of {{{PredA(a)}}}, 
+then {{{r2}}} as result of {{{PredB(b)}}}, then if {{{r1}}} (casted as {{{Number}}}) is GreaterThan {{{r2}}} 
+(also casted as {{{Numeric}}}) returns the result of the invocation{{{PredC(r1)}}}, otherwise will return the
+result of the invocation {{{PredD(r2)}}}.
+
+An example of functional expression is:
+
+{{{
+Func(a,b) : Sum( P1(a), P2(b) );
+}}}
+
+This statement declares a predicate called {{{Func}}} that takes two arguments {{{a}}} and {{{b}}}, 
+then invokes predicates {{{P1(a)}}}, {{{P2(b)}}},  casts their result to {{{Numeric}}}, sums them and returns the result.
+
+An example of logic expression is:
+
+{{{
+Pred(a,b) : P1(a) & P2(b) | P3(a,b);
+}}}
+
+This statement declares a predicate called {{{Pred}}} accepting parameters {{{a}}} and {{{b}}}, 
+that invokes the predicate {{{P1(a)}}}, if its result casted to {{{Boolean}}} is {{{true}}},
+then also {{{P2(b)}}} is evaluated, otherwise not and the result of {{{Pred}}} is {{{false}}}.
+If the result of {{{P1(a)}}} is {{{true}}} and the result of {{{P2(b)}}} is {{{true}}} the result of
+{{{Pred}}} is {{{true}}}, otherwise the result of {{{Pred}}} is equals to the result of {{{P3(a,b)}}}.
+
+MU supports Erlang / Prolog language features like 
+predicate overloading.
+
+{{{
+Factorial(0) : 1;
+Factorial(n) : Mult( n , Factorial( Minus(n,1) ) );
+}}}
+
+The full MU's syntax is specified [MUSyntax here].
+
+=== MU Types ===
+
+MU provides a set of primitive types.
+Every MU type has a JSON native counter part.
+
+||MU Type||Description||Example||JSON representation||
+||{{{BooleanValue}}}||represents a boolean value||true/false||boolean||
+||{{{NumericValue}}}||represents any numeric value||1, -2.5, 10^12||float/integer||
+||{{{StringValue}}}||represents any string|| "a", "this a string"||string||
+||{{{ListValue}}}|| represents an ordered list of values of any type|| [1,"a", true, {a:5}]||array||
+||{{{MapValue}}}||represents a map key value in which keys and values can be any type||{a:1, 2:3, "3":a}||object||
+||{{{GraphValue}}}||represents a graph on nodes and arcs connecting the first ones.|| ' { sub1' : { 'pred1' : 'obj1', 'pred2' : 'obj2' } } ||object||
+||{{{JSONValue}}}|| represents a JSON value of any type.||{"k1" : [1,2,"a"]}||object||
+
+The MU primitive types are polymorphic: every native type can be always
+casted to another native type. The casting among primitive types is managed by the _Cast Manager_.
+The casting operation follows a set of predefined conventions.
+
+The picture below shows the type morphing concept.
+
+[http://em-up.googlecode.com/svn/wiki/images/mu-type-morphing.png]
+
+A detailed explanation of the _MU_ type morphing can be found in section TypeMorphing. 
+
+==MU Language examples ==
+
+{{{
+# This is a comment. #
+}}}
+
+{{{
+PI() : 3.14; # Declaring a const. #
+}}}
+
+{{{
+Const() : "This string is const.";
+}}}
+
+{{{
+# Functional programming. #
+
+TriangleArea(l1, l2) : Div( Mult(l1,l2), 2 );
+
+MinorOf(a,b) : if( Lt(a,b), a, b );
+}}}
+
+{{{
+# Iterative constructs.
+
+PrintRange(start, stop) : for( Range(start,stop,1), x, Print(x) );
+}}}
+
+{{{
+# Procedural programming. #
+
+P1(v1, v2) : v3=P2(v1, k1), v4=P3(v3,k2), P4(v4);
+
+P1(v1, v2);	# Invoking a predicate. #
+
+v1=P1(v2, v3), P2(v1, v4); # Complex invocation.. #
+}}}
+
+{{{
+# Using graphs in MU. #
+
+BasicGraph():<'sub', 'pred', 'obj'>;
+
+Print( <'sub', 'pred', <'a', 'b', 'c'; 'c', 'd', 'e'> > );
+
+NestedGraph() : <'sub', 'pred', <'a', 'b', 'c'; 'c', 'd', 'e'> > ;
+}}}
+
+== MU Operations ==
+
+MU provides a group of operators to process Web data:
+
+===Get/Post===
+
+{{{
+Get/Post(url<String>, par1<String> ...) -> String<HTML | XML | JSON>
+}}}
+
+Retrieves data by specifying a URL and optionally a set of parameters, returns a string
+containing the retrieved content.
+  
+example: 
+
+{{{
+Get('www.google.com/search?q=_', question);
+Post('www.google.com/search?q=_', question);
+}}}
+
+===Content(data)===
+
+{{{
+Content(data) -> String
+}}}
+  
+Returns the content type of a string.
+
+example:
+
+
+{{{
+Content(htmlsource) -> 'HTML'
+Content(xmlsource)  -> 'XML'
+Content(jsonsource) -> 'JSON'
+Content(unknowncontent) -> 'UNKNOWN'
+}}}
+
+
+===XPath===
+
+{{{
+XPath(query<String>, data<String>) -> <String>
+}}}
+
+Extracts the subset of a data string by performing an *XP query*.
+
+XP is a subset of the XPath query language meant to work if forward parsing.
+
+example:
+{{{
+XPath('/html/body/div/table/tr', htmlsource) -> table_row<[String]>
+}}}
+
+===JPath===
+
+{{{
+JPath(data<JSON>, query<String>) -> [<JSON>]
+}}}
+
+Applies the *JP* _query_ string to the given _data_ and returns 
+a list of selected results.
+
+The JP syntax us described [JPSyntax here].
+
+example:
+{{{
+JPath( List(1,2,Map('a',10,'b',20)), '[2].b' ); -> 20
+}}}
+
+===Jsonize===
+
+{{{
+Jsonize(json_model<String>, param1<String>, ...) -> json_object<String>
+}}}
+
+Creates a Json object from a template.
+  
+example:
+{{{
+Jsonize( '{ attr1 :%s, attr2: %s }', p1, F(p1) ) -> '{ attr1 :"p1_value", attr2: "F_p1_value" }'
+}}}
+
+{{{
+Jresult(p) : Jsonize( '{ attr1 :%s, attr2: %s }', p1, F(p) );
+for( params, p, Jresult(p) ) -> [ { attr1 :"p_value1", attr2: "F_p_value1" }, ... , { attr1 :"p_valuen", attr2: "F_p_valuen" }  ]
+}}}
+
+===Unify===
+{{{
+Unify(data<JSON>, model<String>) -> unification<Map>
+}}}
+
+Unifies a JSON data with a JSON model, returns a map representing the unification.
+In unification fails an empty map is returned.
+
+example:
+{{{
+Unify(List(1,2,3,4,5),"[a,b|c]") ==> Map(a,1 , b,2 , c,[3,4,5] )
+}}}
+
+===Renderize===
+
+{{{
+Renderize(json_object<String>) -> html<String>
+}}}
+
+Transforms a JSON object in a renderable HTML string by applying a recursive pattern.
+
+example:
+{{{
+Renderize( '{col1 : "val1", col2 : "val2", col3 : "val3" }' ) 
+}}}
+
+with result:
+
+||*col1*||*col2*||*col3*||
+||val1||val2||val3||
+
+In addition there are _*flow control*_ operators:
+
+===if===
+
+{{{
+if(condition, TrueOp<predicate>, FalseOp<predicate> ) -> condition_value<boolean>
+}}}
+
+If  condition valuates to *true* then TrueOp is executed, otherwise FalseOp is executed.
+
+example:
+{{{
+if( Eq(v1,v2), Print('Equals!'), Print('Different...') );
+}}}
+
+===for===
+
+{{{
+For( elements<list>, element, Operation(element) ) -> [ Operation_element_result ... ]
+}}}
+
+example:
+{{{
+For( elements, element, Print('Element: ', element) );
+}}}

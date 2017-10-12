@@ -1,0 +1,198 @@
+#labels Featured
+
+This section contains a technical discussion about the MU language and the
+principal features.
+
+===What is MUp===
+
+MUp is a framework for creating _mashup_ of web contents.
+MUp is the abbreviation of _Mash Up_ and is pronounced _em-up_.
+The framework is based on a specific high level language called MU.
+This language provides both a logical and functional programming paradigm.
+
+The framework is entirely written in Java, and defines two runtime profiles: 
+ * Java Runtime Environment (JRE) and 
+ * Google Web Toolkit (GWT)
+
+The JRE profiles run on any JVM with version >= 1.5.x
+The GWT profile allows the translation of the entire framework in Javascript,
+with the subsequent ability to be run inside any browser that is GWT-compatible.
+
+The main purpose of MUp when used with the GWT/Javascript profile is to be used
+in defining Javascript embeddable widgets, while when used with the JRE profile
+the main application is _data integration_.
+
+==How it works?==
+
+The MUp framework defines a special language to perform data mashing. 
+This language is called *MU*. MU is both a logic and functional language,
+it provides also procedural constructs.
+
+All predicates provided by MU can be grouped in functional sets.
+The main functional sets are:
+
+ * Source Operations:  set of operations meant to retrieve web resources.
+ * Inspect Operations: set of operations meant to decompose data retrieved from Web.
+ * Model Operations: set of operations meant to create JSON models from raw data.
+ * Renderization Operations: set of operations meant to renderize JSON models.
+
+===Functional Sets===
+
+The functional sets' cloud with main and auxiliary predicates.
+
+[http://em-up.googlecode.com/svn/wiki/images/mu-operation-sets.png]
+
+_MU functional sets_
+
+===A simple processing flow===
+
+This scenario follows a canonical mashup process, starting from the data source and arriving at the rendered widget. 
+The goal of this example application is to produce a widget that lists the titles of the item contained in a RSS feed accessed through the HTTP protocol.
+
+Reading the flow diagram in the figure below from top to bottom, it is possible to see how the different functional sets are involved in the 
+different phases of mashup processing.
+
+Inside the rectangular box on the right of the functional set circles it has been added a coherent code snapshot example.
+
+  * The first step is the raw data retrieval, it can be done with an operation belonging to the \emph{Source Operations} functional set.
+  The code sample performs an _HTTP GET_ request on the specified URL and returns the retrieved XML content of an RSS feed.
+  * The second step performs the decomposition of the raw data (the retrieved XML) in sub parts. This is done with the help of the
+  _Inspect Operations_ functional set. The code sample performs an {{{XP}}} operation to extract all the {{{RSS}}} item descriptions.
+  * The third step creates a complex JSON data using the operations of the _Model Operations_ functional set. The code sample creates an 
+  object which keys are the string $"entry"$ and the values are the description strings retrieved from the RSS feed.
+  * The fourth step creates a UI for the given JSON data, this is achieved by using the _Renderize Operations_ functional set. The code 
+  sample shows the usage of the {{{Renderize()}}} operation, which provides a default induction of the UI widget. 
+
+[http://em-up.googlecode.com/svn/wiki/images/simple-processing-flow.png]
+
+_MUp simple processing flow_
+
+===A complex processing flow===
+
+The complex processing flow shows a more complex application scenario of
+the MUp framework. This scenario follows a canonical mashup process too,
+starting from multiple data sources and arriving to the rendered widget.
+
+At step one it is retrieved the raw page content, by using on of the source set
+operations. Different requests are done for different sources.
+
+At step two it can be performed the inspection of the raw data retrieved at step one with 
+the {{{Type}}} operation, and then can be extracted the sub contexts with the {{{Path}}} operation.
+
+At step three, a JSON model is built on top of the data fragments retrieved at the step two.
+This step also performs the fusion of different data inside the same model.
+
+Finally at step four, the JSON model generated at the step three is converted in a UI widget.
+
+[http://em-up.googlecode.com/svn/wiki/images/complex-processing-flow.png]
+
+_MUp complex processing flow_
+
+===Console & Tools===
+
+The MUp frameworks defines a _Web Console_ and a set of _Tools_
+to simplify the interaction of users. This console and its tools are 
+shown [WebConsole here].
+
+===Architecture===
+
+A detailed architecture of the _MUp_ framework is described [Architecture here].
+
+===MU Basic Language Features===
+
+*MU* is based on an hybrid programming paradigm based on _functional_, _procedural_ 
+and _logic_ constructs.
+
+MU is procedural, it provides {{{if()}}} and {{{for()}}} flow controls and variable
+definitions.
+
+An example of procedural expression is:
+{{{
+Procedure(a,b) : r1=Process(a), r2=Process(b), if( Gt(r1,r2), Process(r1), Process(r2) );
+}}}
+
+MU is also functional, every predicate returns a value, every predicate's argument can be be
+itself a predicate (nested predicate).
+
+An example of functional expression is:
+{{{
+Function(a,b) : sum( F1(a), F2(b) );
+}}}
+
+MU is logical, predicate's computation can be connected with logical operators {{{&}}} and {{{|}}}.
+
+An example of logic expression is:
+{{{
+Predicate(a,b) : P1(a) & P2(b) | P3(a,b);
+}}}
+
+U provides the following set of primitive types.
+
+  boolean
+  numeric
+  string
+  list
+  map
+  graph
+  JSON
+
+====Type Morphing====
+
+The MU primitive types are polymorphic: every native type can be always
+casted to another native type. The casting among primitive types is managed by the _Cast Manager_.
+The casting operation follows a set of conventions.
+
+A detailed description of type morphing can be found [TypeMorphing here].
+
+===MU Advanced Language Features===
+
+MU supports {{{Erlang}}} / {{{Prolog}}} language features like 
+-unification_:
+
+{{{
+# Basic unification #
+P1(a, b, c) =::= (List(1,2,3)) ==> P1(a:=1,b:=2,c:=3)
+}}}
+
+and _predicate overloading_:
+
+{{{
+Factorial(0) : 1;
+Factorial(n) : Mult( n , Factorial( Minus(n,1) ) );
+}}}
+
+These powerful features and the role they play in *MU* are explained
+in section [UnificationAndOverloading].
+
+==GUI Induction==
+
+The GUI Induction is the capability of the system of generating a GUI for a JSON model.
+The {{{Renderize()}}} predicate provides the hidden processing flow shown on the right.
+Any _JSON_ model can be transformed in a GUI model by applying a set of default transformations.
+It is possible to attend to the default Induction process by acting on the JSON GUI Model, 
+using the power of _unification_.
+
+Examples of GUI Inductions based on the unification are:
+
+{{{
+# Change Background color. #
+ChangeBG( { “background” : bg | o } ) :  Add(o, Map(“background”, “red”) );
+}}}
+
+In this sample we define a {{{ChangeBG}}} (change background) predicate able to recognize any JSON
+object defining the {{{background}}} key. When then matching happens, the predicate simply 
+overrides the matched object property setting it to {{{red}}}.
+
+{{{
+# Change panel orientation if size exceed 10. #
+ChangePO( { o } ) :  if(  Gt( Size(o), 10 ) , Add(o, Map(“orientation”, “vertical”) ) );
+}}}
+
+In this sample we define a {{{ChangePO}}} (change panel orientation) predicate applicable on
+any JSON object. When an object is passed, the predicate checks that the object's size is greater
+than 10, is so the attribute {{{orientation: vertical}}} is added to the object.
+
+==Validation Scenarios==
+
+The validation scenarios are a set of testbeds meant to validate the applicability of
+MU is some real and synthetic use cases. The validation scenarios are described [ValidationScenarios here].

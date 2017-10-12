@@ -1,0 +1,4 @@
+Testsuite: com.asemantics.lightparser.BodyTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.02 sec
+
+Testcase: testPopulate took 0.016 sec

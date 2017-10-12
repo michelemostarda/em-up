@@ -1,0 +1,78 @@
+
+==Purpose==
+
+The purpose of this section is to provide support to developers interested
+in understanding and extending the MUp framework.
+
+==Introduction==
+
+The _MUp_ framework is still in a prototypal version, and then is subjected to 
+modifications and extensions. 
+
+The framework is meant to be extended with both Java and Javascript code.
+
+To start working with MUp is suggested to to download one of the tags in the main repository.
+
+Before start using the framework is needed a good knowledge of _Ant 1.7_ (the build system),
+_Java 1.5_ (the core language), _Google Web Toolkit_ (GWT) and Javascript.
+
+It is also suggested to fully understand the concept of _runtime profile_ used by the framework.
+
+==Runtime Profiles==
+
+_MUp_ is composed of a _Core_ and two _runtime profiles_:
+  #_JRE_
+  #_GWT_
+
+The _MUp Core_ has not dependencies with GWT *but* is written in respect of the restrictions imposed
+by this. This allow to compile the _Core_ with the GWT compiler and translate it in Javascript.
+
+The _MUp Core_ however cannot be used without a runtime profile. 
+
+The _JRE_ profile can be run as a shell console within a JVM and doesn't depend on _GWT_.
+The _GWT_ profile can be run as a WEB application.
+
+===JRE===
+
+The quickest way to understand the JRE profile is to read the _build.xml_ in the _MashUp_ module. 
+
+===GWT===
+
+The quickest way to understand the JRE profile is to read the _build.xml_ in the _GWTMashUpIntegration_ module.
+
+==Core Classes==
+
+The main classes of the _MUp Core_ are described in section [Processor].
+
+==How to define new predicates==
+
+TODO: add instructions on signature, invocations and how to define new predicates.
+
+==Compilation==
+
+This section explains how compilation happens in MU.
+The compilation is based on [LightParser], that generates a _parse tree_ composed of {{{Terminal}}} nodes.
+Where the compilation is completed, the generated tree is walked in _post-order_ visit 
+with the {{{ParseTreeVisitor}}} class. This visit is used to create partial results
+of the compilation that at any iteration through the tree root are provided to the parent
+nodes. The last iteration will complete the compilation of the _parse tree_.
+The operation's sequence is shown in the picture below. The progression of numbers represent 
+the visit order, the flow describes the invocation of the term's methods {{{precompile()}}}
+and {{{postcompile()}}}, the passed arguments and the content of the visitor's stack at any time.
+
+The notation {{{Ni.postcompile([Rj,Rk])}}} means the invocation of post compile method 
+of terminal {{{Ni}}} with a list of arguments {{{Rj}}}, {{{Rk}}} where {{{Rl}}} is the result of
+post compilation of the terminal number {{{l}}}. 
+
+For example {{{N1.postcompile([R2,R7])}}} means:
+  invoke postcompile of node {{{N1}}} with the post compilation results of the terminals {{{N2}}}
+  and {{{N7}}}.
+
+[http://em-up.googlecode.com/svn/wiki/images/compilation-visit.png]
+
+==How to extend the syntax.==
+
+TODO: to be done.
+
+
+

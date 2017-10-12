@@ -1,0 +1,50 @@
+
+This section describes the type morphing logic
+on which is based *MU*.
+
+MU relies on the concept that every primitive type can be always 
+converted to another primitive type through the  application of a
+set predefined conversions.
+
+The ability of transforming types is a key aspect when operating with _semi structured_ 
+and _live_ data.
+
+Let's suppose to have written a a mashup script to extract a number from each section of a
+certain data source. After a change of the original data, instead of a number the script
+will find a list of elements. _MU_ deals with this minor issue casting the list to a number,
+returning the size of the list, without raising exceptions.
+
+The graph below shows this concept:
+
+[http://em-up.googlecode.com/svn/wiki/images/mu-type-morphing.png]
+
+A type conversion may occur in an _explicit_ or _implicit_ way.
+
+  The _explicit conversion_ is achieved with the usage of the {{{Cast()}}}
+  operator, (for further details is suggested to refer the UserManual).
+
+  The _implicit conversion_ is achieved when a native predicate is invoked and
+  some of the actual parameters differ from the expected type declared in the
+  predicate signature. (see {{{Context()}}} operation in UserManual).
+
+The following list defines the operators used in the _transformation matrix_.
+  #_->_: converted to.
+  #_isNumber(str)_: is true if _str_ is a number, false otherwise.
+  #_number(str)_: the number represented by _str_.
+  #_CONDITION?TRUE_OPTION:FALSE_OPTION: if CONDITION is true consider the TRUE_OPTION, otherwise consider the FALSE_OPTION.
+  #_size(list)_: returns the size of _list_.
+  #_concatenate(list)_: concatenates all the elements of the list, returning a comma separated string. 
+
+The conversion logic among primitive types is based on the following _transfomation matrix_:
+
+||Origin Type / Destination Type||{{{BooleanValue}}}||{{{NumericValue}}}||{{{StringValue}}}||{{{ListValue}}}||{{{MapValue}}}||{{{GraphValue}}}||{{{JSONValue}}}||
+||{{{BooleanValue}}}||   -   ||true->1,false->0||true->'true',false->'false'||true->List(true),false->List(false)||true->Map(true),false->Map(false)||TODO||true->true,false->false||
+||{{{NumericValue}}}||0->false, !=0->true||   -   ||n->'n'||List(n)||Map(n)||TODO||n->n||
+||{{{StringValue}}} ||length(str)>0->true,length(str)==0->false||isNumber(str)?->number(str):->0||   -   ||List(str)||Map(str)||TODO||str->str||
+||{{{ListValue}}}   ||size(list)>0?->true:->false||->size(list)||concatenate(list)||   -   ||foreach(elem,list) : Map(elem,null)||       ||       || 
+TODO: to be ended.
+||{{{MapValue}}}    ||       ||       ||       ||       ||   -   ||       ||       ||
+||{{{GraphValue}}}  ||       ||       ||       ||       ||       ||   -   ||       ||
+||{{{JSONValue}}}   ||       ||       ||       ||       ||       ||       ||   -   || 
+
+_Transformation Matrix_

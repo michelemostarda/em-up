@@ -1,0 +1,62 @@
+This section defines the inspirations, ideas and analysis behind the MU language concepts.
+
+_MU_ takes a large inspiration from the cited works{{{[1,2]}}} 
+and also from several industrial products (see section Comparison).
+ 
+In particular from  [http://mashmaker.intel.com/ Mash Maker] is taken the concept 
+of
+ editing and manipulating semi-structured live data
+
+The {{{Untiped Tree Data Model}}} is at the origin of the user induction logic.
+
+_MU_ then takes inspiration from {{{Prolog [3,4,5]}}} for the logic programming approach 
+and in particular for the _unification_ concept.
+
+_MU_ is inspired to {{{Erlang[6]}}} for what concerns parallelization and distribution. 
+The adoption of the functional paradigm is furthermore motivated by the implicit capacity
+of this class of languages to write applications that take advantage of the distributed model.
+
+_MU_ provides operations for graph data processing meant to realize {{{Semantic Web [7,8,9]}}} solutions.
+----
+
+==References==
+
+{{{[1]}}} N. Zang and M. B. Rosson. What’s in a mashup? and 
+why? studying the perceptions of web-active end 
+users. In Visual Languages and Human-Centric 
+Computing, 2008. VL/HCC 2008. IEEE Symposium 
+on, pages 31–38, 2008.
+ 
+{{{[2]}}} N. Zang, M. B. Rosson, and V. Nasser. Mashups: 
+who? what? why? In CHI ’08: CHI ’08 extended 
+abstracts on Human factors in computing systems, 
+New York, NY, USA, 2008. ACM.
+
+{{{[3]}}} S. Antoy and M. Hanus. Functional logic design 
+patterns. pages 67–87. 2002.
+
+{{{[4]}}} P. Hudak. Conception, evolution, and application of 
+functional programming languages. ACM Comput. 
+Surv., 1989.
+ 
+{{{[5]}}} K. Knight. Uniﬁcation: a multidisciplinary survey. 
+ACM Comput. Surv., March 1989.
+
+{{{[6]}}} C. Wikstrom. Distributed programming in erlang, 
+1994.
+
+{{{[7]}}} R. J. Ennals and M. N. Garofalakis. Mashmaker: 
+mashups for the masses. In SIGMOD ’07: Proceedings 
+of the 2007 ACM SIGMOD international conference 
+on Management of data, New York, 
+NY, USA, 2007. ACM.
+
+{{{[8]}}} C. Bizer, T. Heath, K. Idehen, and T. Berners-Lee. 
+Linked data on the web (ldow2008). In WWW ’08: 
+Proceeding of the 17th international conference on 
+World Wide Web, New York, NY, 
+USA, 2008. ACM.
+ 
+{{{[9]}}} M. Franklin, A. Halevy, and D. Maier. From databases 
+to dataspaces: a new abstraction for information 
+management. SIGMOD Rec., 2005. 

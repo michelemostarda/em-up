@@ -1,0 +1,30 @@
+====================
+ JRE Profile Module
+====================
+
+The Java Runtime Environment profile of MUp.
+
+Content
+-------
+
+build.xml         Ant build file.
+jre-profile.i*    IntelliJ 7.4(>) project files. 
+src               Source files.
+test              Test files.
+
+
+Help
+----
+
+to obtain help from the build system type:
+
+  $ ant help
+
+
+MUp JRE Console
+---------------
+
+To run the MUp JRE console run:
+
+ $ ant clean dist && cd bin && ./mup-shell.sh
+

@@ -1,0 +1,24 @@
+<module>
+
+      <!-- Inherits the core Web Toolkit stuff. -->
+      <inherits name='com.google.gwt.user.User'/>
+
+      <!-- Inherits the JSON utilities. -->
+      <inherits name='com.google.gwt.json.JSON'/>
+
+      <!-- Inherits the JUnit utilities. -->
+      <!--<inherits name='com.google.gwt.junit.JUnit'/>-->
+
+      <!-- Inherit LightParser. -->
+	  <inherits name='com.asemantics.LightParser'/>
+
+      <!-- Special effects ... -->
+      <inherits name='com.gwtext.GwtExt'/>
+
+      <!-- Defines source path. -->
+      <source path="mashup"/>
+
+      <!-- Specify the library entry point class. -->
+      <entry-point class='com.asemantics.mashup.gwt.MashUp'/>
+	
+</module>

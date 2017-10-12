@@ -1,0 +1,61 @@
+#labels Featured
+==Key Concepts==
+The _GUI_ module is responsible of providing the logic
+to transform a generic JSON data in a Native GUI Model.
+
+List of key concepts:
+
+  # _JSON data_: any JSON data structure.
+  # _JSON UI model_: a particular JSON format representing a _User Interface_.
+  # _Native UI model_: a _User Interface model_ ready to be shown by the native GUI system.
+
+This transformations happens in respect of a specific logic
+described in the picture below.
+
+[http://em-up.googlecode.com/svn/wiki/images/renderize-processing-flow.png]
+
+==Renderization flow==
+
+The usage of the {{{Renderize()}}} operation can be  internally decomposed 
+in three distinct steps. 
+In the first step, a generic _JSON data_ is converted by the 
+{{{Modelize()}}} operation to a _JSON UI Model_. 
+This model is a tree model representing  a default _User Interface_ built on top 
+of the data model, by applying a set of predefined transformations. 
+In the second step the _JSON UI Model_ generated at step two can be customized 
+using the {{{Apply()}}} operation. 
+In the final step the _JSON UI Model_ can be converted in a _UI Native Model_ 
+by using the {{{Concretize()}}} operation.
+
+The user can choice to use the {{{Renderize()}}} operation as is, or by replacing
+it with its internal functions.
+
+===A specific Example===
+
+The predicate overloading is important not only for the role it plays in a functional-like
+language such _MU_, but also for its suitability for the data presentation. 
+The overloading, in fact, can be used to render (with different widgets) the same data structure
+and allows the programmers to define this specific behavior at runtime.
+
+The following example shows how predicate overloading is used in order to control the 
+presentation of a data structure:
+
+{{{
+ChangeBG( { “background” : bg | o } ) :  Add(o, Map(“background”, “red”) );
+}}}
+
+The defined {{{ChangeBG}}} (change background) predicate is able to unify with any {{{JSON}}} object 
+containing a {{{background}}} key. When the matching happens, the predicate simply changes the matched
+object key by setting its value to 'red'.
+
+==UI Hierarchy==
+
+The _User Interface_ hierarchy currently supported by MU is shown the the picure below.
+
+[http://em-up.googlecode.com/svn/wiki/images/ui-hierarchy.png]
+
+----
+
+*NOTE* :_this section is under development._ 
+
+[http://em-up.googlecode.com/svn/wiki/images/under-development-small.png]

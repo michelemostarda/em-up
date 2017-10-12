@@ -1,0 +1,86 @@
+_Light Parser_ is the parser module on which is based the _MU Core_ Language Parser.
+
+_Light Parser_ is a LR parser with backtracking support written in Java.
+_Light Parser_ is compliant with the GWT client restrictions, so that can
+be compiled in Javascript and run entirely inside a web browser.
+
+Light Parser supports the definition of basic Bakus Naur Form (BNF) grammars.
+To define a grammar with lightParser it is need to define a set of Token separators
+and a set of rules.
+
+The token separators are used to configure the {{{Tokenizer}}} to split the input string
+in significant tokens.
+
+The generated tokens are then sent to the parser which reconstructs the Parse Tree.
+
+An example of {{{Tokenizer}}} configuration (used to define the XP grammar) is:
+
+{{{
+/**
+  * List of token separators.
+  */
+ public static final Tokenizer.TokenSeparator[] XPATH_SEPARATORS
+         = new Tokenizer.TokenSeparator[]{
+             new Tokenizer.TokenSeparator( PATH_SEPARATOR, true),  // Char separator, passthrough.
+             new Tokenizer.TokenSeparator('[' , true),
+             new Tokenizer.TokenSeparator(']' , true),
+             new Tokenizer.TokenSeparator('<' , true),
+             new Tokenizer.TokenSeparator('>' , true),
+             new Tokenizer.TokenSeparator('=' , true),
+             new Tokenizer.TokenSeparator('!' , true),
+             new Tokenizer.TokenSeparator('@' , true)
+         };
+
+...
+
+Tokenizer tokenizer = new TokenizerImpl(XPATH_SEPARATORS);
+
+}}}
+
+The grammar is defined with a set of rules as these:
+
+{{{
+   Grammar grammar = new Grammar();
+
+   /*
+    *      <path> ::= '/' <path_list>  // absolute path.
+    *                 |
+    *                 <path_list> ;    // relative path.
+    */
+   grammar.createProduction( new XPPath("path") )
+           .getBody()
+               .addTerminal   ("/")
+               .addNonTerminal( new XPPathList("path_list") )
+           .addAlternative()
+               .addNonTerminal( new XPPathList("path_list") );
+
+
+
+   /*
+    *      <path_list> ::= <path_elem> '/' <path_list>
+    *                      |
+    *                      <path_elem> ;
+    */
+   grammar.createProduction( new XPPathList("path_list") )
+           .getBody()
+               .addNonTerminal( new XPPathElem("path_elem") )
+               .addTerminal   ( "/" )
+               .addNonTerminal( new XPPathList("path_list") )
+           .addAlternative()
+               .addNonTerminal( new XPPathElem("path_elem") );
+
+   /*
+    *      <path_elem> ::= node '[' <condition> ']'   // Filtered node
+    *                      |
+    *                      node ;                     // Node
+    */
+   grammar.createProduction( new XPPathElem("path_elem") )
+           .getBody()
+               .addTerminal( new XPNode("node") )
+               .addTerminal( "[" )
+               .addNonTerminal( new XPCondition("condition") )
+               .addTerminal( "]" )
+           .addAlternative()
+               .addTerminal( new XPNode("node") );
+
+}}}

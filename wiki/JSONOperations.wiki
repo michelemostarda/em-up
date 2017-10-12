@@ -1,0 +1,34 @@
+This section describes in detail the JSON handling operations.
+
+==Jsonize==
+
+{{{<JSON> Jsonize(<String> template, <List> params)}}}
+
+The {{{Jsonize}}} predicate expands a template string with a list of parameters.
+
+The template string will contain specific markers. 
+
+These markers are associated in order of appearance with the list of parameters.
+
+A marker is defined with the {{{%}}} character followed by a letter that specifies
+the casting to be applied to the corresponding parameter before expanding it in the template.
+The final expansion is done with the invocation of the {{{Value.asJSON()}}} method.
+
+_List of available markers._
+
+||Marker||Cast||
+||{{{%b}}}||{{{AsBoolean()}}}||
+||{{{%s}}}||{{{AsString()}}}||
+||{{{%n}}}||{{{AsNumeric()}}}||
+||{{{%a}}}||{{{AsList()}}}||
+||{{{%o}}}||{{{AsMap()}}}||
+||{{{%u}}}||_(Apply no cast)_||
+
+
+===Jsonize Example===
+
+{{{Jsonize( '{ "key" : %o }', Map('a','b') )}}} 
+
+will return an object like:
+
+{{{ { "key" : { "a" : null, "b" : null} } }}}

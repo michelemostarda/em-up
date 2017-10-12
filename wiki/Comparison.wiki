@@ -1,0 +1,32 @@
+This section show a comparison of _MUp_ with other similar
+mashup solutions.
+
+The table following shows the comparison criteria used to define the main features of this language.
+
+The columns define the relevant features of a mashup language:
+
+  # _Javascript Based_ if the solution is written in Javascript.
+  # _Java Based_ if the solution is written in Java.
+  # _Extensible_ whether the language can be enriched with new constructs.
+  # _Client Side_ whether the framework runs in a web browser.
+  # _Server Side_ whether the framework runs in a remote server.
+  # _Open Source_ whether the framework sources are available as Open Source code.
+  # _Cross Browser_ whether the framework can be used across the main web browsers (Mozilla, IE, Safari, Opera).
+  # _Logical_ whether the language supports logical paradigm.
+  # _Unification Support_ whether the language supports unification.
+  # _JSON Model Support_ whether the language supports JSON model syntax.
+  # _Graph Support_ whether the language supports Graph types and operators.
+  # _Type Morphing_ whether the language supports the type morphing paradigm.
+  # _UI Induction_ whether the language supports operators for UI Induction (see section [Renderer]).
+
+The rows enlist products and solutions that can be compared with _MUp_.
+
+||_Solution_ 														    ||_Javascript Based_||_Java Based_||_Extensible_||_Client Side_||_Server Side_||_Open Source_||_Cross Browser_||_Logical_||_Unification supp._||_JSON Model supp._||_Graph supp._||_Type Morphing_||_UI Induction_||
+||*MU*       														    ||Yes				||Yes		   ||Yes		 ||Yes	     	||Yes		   ||Yes		  ||Yes			  ||Yes	     ||Yes				  ||Yes			  	  ||Yes		   	 ||Yes		  	  ||Yes		 	  ||
+||[http://afrous.com/ Afrous]  	 									    ||Yes				||No		   ||No			 ||Yes	     	||No		   ||Yes		  ||Yes			  ||No		 ||No				  ||No			  	  ||No		   	 ||No			  ||No			  ||
+||[http://pipes.yahoo.com/ Yahoo Pipes]								    ||No				||No		   ||No			 ||No		 	||Yes		   ||No		  	  ||Yes			  ||No		 ||No				  ||No			  	  ||No		   	 ||No			  ||No			  ||
+||[http://mashmaker.intel.com/ Mash Maker] 							    ||Yes				||No		   ||No		     ||Yes		 	||No		   ||No		  	  ||No			  ||Yes	  	 ||No				  ||No			  	  ||No		   	 ||No			  ||No			  ||
+||[http://openkapow.com/ OpenKapow] 								    ||No				||Yes		   ||Yes		 ||No		 	||Yes		   ||No		  	  ||Yes			  ||No       ||No				  ||No			  	  ||No		   	 ||No			  ||No			  ||
+||[http://services.alphaworks.ibm.com/isc/ DSL Sharable Sharable Code]  ||No				||No		   ||No			 ||No			||Yes		   ||No			  ||Yes			  ||No		 ||No				  ||No				  ||No			 ||No			  ||No			  ||	
+
+The full list of language features can be found [Introduction here].
